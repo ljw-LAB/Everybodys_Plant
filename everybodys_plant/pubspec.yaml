@@ -18,7 +18,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.1 <3.0.0"
+  sdk: ">=2.15.1 <3.0.0"
+  # sdk: ">=2.7.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,6 +35,22 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  date_picker_timeline: ^1.2.3
+  table_calendar: ^3.0.4
+  provider: ^6.0.2
+  shared_preferences: 2.0.13
+  geolocator: ^8.2.0
+  http: ^0.13.4
+  # location: ^4.3.0
+  # geolocator: ^6.1.13
+  # http: ^0.12.2
+
+  image_picker: ^0.8.4+11
+  video_player: ^2.3.0
+  syncfusion_flutter_datepicker: ^20.1.47
+  intl: ^0.17.0
+  camera: ^0.9.4+19
+
 
 dev_dependencies:
   flutter_test:
@@ -51,7 +68,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  assets:     # 새로 추가한 부분
+    - assets/ # assets 폴더의 모든 이미지를 불러옴
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
