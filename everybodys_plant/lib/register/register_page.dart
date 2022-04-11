@@ -27,7 +27,10 @@ class _RegisterPageState extends State<RegisterPage> {
     '기타'
   ];
   final List<String> perioditems = ['일', '주', '개월', '사용 안함'];
-  String? inputvalue;
+  String perioditems_value = '일';
+  String spaceitems_value = '방/원룸';
+  String potitems_value = '화경/수경재배';
+
   String _selectedValue = '1';
   DateTime? _selectedDate1; //마지막 물준날
   DateTime? _selectedDate2; //마지막 분갈이
@@ -401,19 +404,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton(
+                      value: potitems_value,
                       isExpanded: true,
                       iconSize: 24,
                       icon: Icon(Icons.arrow_drop_down, color: Colors.black),
                       style: const TextStyle(color: Colors.black),
-                      items: potitems.map((inputvalue) {
+                      items: potitems.map((String potitems_map_val) {
                         return DropdownMenuItem(
-                          value: inputvalue,
-                          child: Text(inputvalue),
+                          value: potitems_map_val,
+                          child: Text(potitems_map_val),
                         );
                       }).toList(),
-                      onChanged: (value) {
+                      onChanged: (potitems_val) {
                         setState(() {
-                          _selectedValue = value as String;
+                          potitems_value = potitems_val as String;
                         });
                       },
                     ),
@@ -443,19 +447,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton(
+                      value: spaceitems_value,
                       isExpanded: true,
                       iconSize: 24,
                       icon: Icon(Icons.arrow_drop_down, color: Colors.black),
                       style: const TextStyle(color: Colors.black),
-                      items: spaceitems.map((inputvalue) {
+                      items: spaceitems.map((String spaceitems_map_val) {
                         return DropdownMenuItem(
-                          value: inputvalue,
-                          child: Text(inputvalue),
+                          value: spaceitems_map_val,
+                          child: Text(spaceitems_map_val),
                         );
                       }).toList(),
-                      onChanged: (value) {
+                      onChanged: (s_value) {
                         setState(() {
-                          _selectedValue = value as String;
+                          spaceitems_value = s_value as String;
                         });
                       },
                     ),
@@ -559,20 +564,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton(
-                      value: _selectedValue,
+                      value: perioditems_value,
                       isExpanded: true,
                       iconSize: 24,
                       icon: Icon(Icons.arrow_drop_down, color: Colors.black),
                       style: const TextStyle(color: Colors.black),
-                      items: perioditems.map((inputvalue) {
+                      items: perioditems.map((String perioditems_map_val) {
                         return DropdownMenuItem(
-                          value: inputvalue,
-                          child: Text(inputvalue),
+                          value: perioditems_map_val,
+                          child: Text(perioditems_map_val),
                         );
                       }).toList(),
-                      onChanged: (value) {
+                      onChanged: (String? p_value) {
                         setState(() {
-                          _selectedValue = value as String;
+                          perioditems_value = p_value as String;
                         });
                       },
                     ),
