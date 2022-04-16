@@ -20,57 +20,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //상단바 -> SliverAppBar??
-    AppBar appBar = AppBar(
-      //가운데
-      title: Container(
-        width: 84,
-        height: 16,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/secondlogo.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-
-      //왼쪽
-      leading: GestureDetector(
-        child: Container(
-          width: 24,
-          height: 24,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/secondlogo.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-
-      //오른쪽
-      actions: [
-        GestureDetector(
-          child: Container(
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/secondlogo.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 16),
-      ],
-
-      //설정
-      automaticallyImplyLeading: false, //뒤로가기 제거
-      elevation: 0, //Appbar 구분 선 제거
-      centerTitle: true, //title 가운데
-    );
-
     //하단바
     BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
@@ -94,10 +43,66 @@ class _MyHomePageState extends State<MyHomePage> {
 
     //진짜 페이지 구성
     return Scaffold(
-      backgroundColor: Colors.blue,
-      appBar: appBar,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(48),
+        child: SafeArea(
+          child: Container(
+            height: 48,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Row(
+                children: [
+                  //알람 버튼
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/secondlogo.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(child: SizedBox(width: 98)),
+                  //제목 버튼
+                  Container(
+                    width: 83.17,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/secondlogo.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: SizedBox(width: 98)),
+                  //오른쪽 설정 버튼
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/secondlogo.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(child: _pages.elementAt(_selectedIndex)),
       bottomNavigationBar: bottomNavigationBar,
+      backgroundColor: Colors.white,
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
