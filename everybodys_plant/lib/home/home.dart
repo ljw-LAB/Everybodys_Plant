@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:everybodys_plant/home/Bottomhome.dart';
+import 'package:everybodys_plant/register/plantlist.dart';
 
 import 'package:everybodys_plant/register/register_page.dart';
 import 'package:everybodys_plant/schedule/scheduler_org.dart';
@@ -17,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   // 이동할 페이지
-  List _pages = [Plant_schedule_Page(), BottomHomePage(), RegisterPage()];
+  List _pages = [Plant_schedule_Page(), BottomHomePage(), PlantList()];
 
   @override
   Widget build(BuildContext context) {

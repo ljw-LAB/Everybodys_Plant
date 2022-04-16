@@ -8,14 +8,18 @@ import 'dart:io';
 import 'package:everybodys_plant/register/plantlist.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({Key? key}) : super(key: key);
+  final String? plantname;
+
+  RegisterPage({Key? key, @required this.plantname}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  // 재배 조건 선택 옵션
   final List<String> potitems = ['화경/수경재배', '토분', '플라스틱 화분', '철제/시멘트 화분'];
+  // 재배 장소 선택 옵션
   final List<String> spaceitems = [
     '방/원룸',
     '거실',
@@ -26,18 +30,19 @@ class _RegisterPageState extends State<RegisterPage> {
     '야외',
     '기타'
   ];
+  // 분갈이 주기
   final List<String> perioditems = ['일', '주', '개월', '사용 안함'];
   String perioditems_value = '일';
   String spaceitems_value = '방/원룸';
   String potitems_value = '화경/수경재배';
 
   String _selectedValue = '1';
-  DateTime? _selectedDate1; //마지막 물준날
-  DateTime? _selectedDate2; //마지막 분갈이
-  var _isChecked2 = false; //숙련자 여부 변수
+  DateTime? _selectedDate1; //마지막 물준날 날짜
+  DateTime? _selectedDate2; //마지막 분갈이 날짜
+  var _isChecked2 = false; //숙련자 여부 체크 변수
   bool isVisible = false;
 
-  // 마지막 물준날 데이트 픽커
+  // 마지막 물준날 날짜 선택 기능
   void _presentDatePicker1() {
     // showDatePicker is a pre-made funtion of Flutter
     showDatePicker(
@@ -57,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  // 마지막 분갈이 데이트 픽커
+  // 마지막 분갈이 날짜 선택 기능
   void _presentDatePicker2() {
     // showDatePicker is a pre-made funtion of Flutter
     showDatePicker(
@@ -77,6 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
+  // 이미지 불러오기 기능
   PickedFile? _image;
 
   Future getImageFromCam() async {
@@ -136,10 +142,11 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(color: Colors.grey),
         title: Text("식물정보 등록",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
         centerTitle: true,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: Icon(CupertinoIcons.xmark, color: Colors.black),
@@ -159,13 +166,15 @@ class _RegisterPageState extends State<RegisterPage> {
             Row(
               children: [
                 SizedBox(width: 24),
-                Text("반갑습니다."),
+                Text("반갑습니다.",
+                    style: TextStyle(fontSize: 16, color: Color(0xff6B7583))),
               ],
             ),
             Row(
               children: [
                 SizedBox(width: 24),
-                Text("식물에 대해 알려주세요."),
+                Text("식물에 대해 알려주세요.",
+                    style: TextStyle(fontSize: 16, color: Color(0xff6B7583))),
               ],
             ),
             SizedBox(height: 24),
@@ -174,11 +183,11 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.grey, width: 3)),
-                  height: 152,
-                  width: 152,
+                      border: Border.all(color: Colors.grey, width: 1)),
+                  height: 154,
+                  width: 154,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -235,6 +244,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(height: 24),
                                 TextButton(
                                     onPressed: () => Navigator.pop(context),
                                     child: Text('취소'))
@@ -255,6 +265,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         backgroundColor: Colors.white,
                       ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        "반려식물의 사진을\n 선택해주세요.",
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      )
                     ],
                   ),
                 ),
@@ -266,7 +283,39 @@ class _RegisterPageState extends State<RegisterPage> {
             Row(
               children: [
                 SizedBox(width: 24),
-                Text("식물명"),
+                Text("식물명", style: TextStyle(color: Color(0xff6B7583))),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 40,
+                    width: 370,
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('   ${widget.plantname}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16)),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(width: 24),
+                Text("애칭", style: TextStyle(color: Color(0xff6B7583))),
               ],
             ),
             Row(
@@ -292,33 +341,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Row(
               children: [
                 SizedBox(width: 24),
-                Text("애칭"),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 40,
-                    width: 370,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                SizedBox(width: 24),
-                Text("마지막 물준날"),
+                Text("마지막 물준날", style: TextStyle(color: Color(0xff6B7583))),
               ],
             ),
             Row(
@@ -342,7 +365,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             child: const Text('날짜 선택'),
                             style: ButtonStyle(
                               backgroundColor:
-                                  MaterialStateProperty.all(Colors.grey),
+                                  MaterialStateProperty.all(Color(0xff69d5e7)),
                             ),
                           ),
                           SizedBox(
@@ -353,7 +376,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               _selectedDate1 != null
                                   ? _selectedDate1.toString().substring(0, 11)
                                   : '선택하지 않음',
-                              style: const TextStyle(fontSize: 16),
+                              style: const TextStyle(
+                                  fontSize: 16, color: Color(0xff6B7583)),
                             ),
                           ),
                         ],
@@ -364,7 +388,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Row(
               children: [
                 SizedBox(width: 24),
-                Text("숙련자 인가요?"),
+                Text("숙련자 인가요?", style: TextStyle(color: Color(0xff6B7583))),
               ],
             ),
             Row(
@@ -378,7 +402,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         isVisible = !isVisible;
                       });
                     }),
-                Text("숙련자"),
+                Text("숙련자", style: TextStyle(color: Color(0xff6B7583))),
               ],
             ),
             Visibility(
@@ -386,7 +410,8 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Row(
                 children: [
                   SizedBox(width: 24),
-                  Text("어떤 화분에서 키우고 있나요"),
+                  Text("어떤 화분에서 키우고 있나요",
+                      style: TextStyle(color: Color(0xff6B7583))),
                 ],
               ),
             ),
@@ -430,7 +455,8 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Row(
                 children: [
                   SizedBox(width: 24),
-                  Text("어떤 공간에서 키우고 있나요"),
+                  Text("어떤 공간에서 키우고 있나요",
+                      style: TextStyle(color: Color(0xff6B7583))),
                 ],
               ),
             ),
@@ -481,7 +507,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   SizedBox(width: 24),
                   Text(
                     "분갈이 정보",
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20, color: Color(0xff6B7583)),
                   ),
                 ],
               ),
@@ -491,9 +517,8 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Row(
                 children: [
                   SizedBox(width: 24),
-                  Text(
-                    "마지막 분갈이 날짜",
-                  ),
+                  Text("마지막 분갈이 날짜",
+                      style: TextStyle(fontSize: 20, color: Color(0xff6B7583))),
                 ],
               ),
             ),
@@ -519,8 +544,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               onPressed: _presentDatePicker2,
                               child: const Text('날짜 선택'),
                               style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.grey),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Color(0xff69d5e7)),
                               ),
                             ),
                             SizedBox(
@@ -531,7 +556,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 _selectedDate2 != null
                                     ? _selectedDate2.toString().substring(0, 11)
                                     : '선택하지 않음',
-                                style: const TextStyle(fontSize: 16),
+                                style: const TextStyle(
+                                    fontSize: 16, color: Color(0xff6B7583)),
                               ),
                             ),
                           ],
@@ -594,9 +620,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Row(
               children: [
                 SizedBox(width: 24),
-                Text(
-                  "메모",
-                ),
+                Text("메모", style: TextStyle(color: Color(0xff6B7583))),
               ],
             ),
             Row(
@@ -629,7 +653,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 GestureDetector(
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: Color(0xff69d5e7),
                         borderRadius: BorderRadius.circular(10)),
                     height: 70,
                     width: 340,
@@ -643,7 +667,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             title: Center(
                                 child: Text(
                               '등록을 완료하시겠습니까?',
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(
+                                  fontSize: 18, color: Color(0xff6B7583)),
                             )),
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -680,7 +705,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black)),
+                                color: Colors.white)),
                       ),
                     ),
                   ),

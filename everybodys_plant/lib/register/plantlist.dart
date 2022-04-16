@@ -1,3 +1,4 @@
+import 'package:everybodys_plant/register/register_page.dart';
 import 'package:flutter/material.dart';
 
 class PlantList extends StatefulWidget {
@@ -12,11 +13,19 @@ class _PlantListState extends State<PlantList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: const Text('Search'),
+        elevation: 0.0,
+        leading: BackButton(color: Colors.grey),
+        backgroundColor: Colors.white,
+        title: const Text(
+          '식물을 검색해주세요',
+          style: TextStyle(color: Colors.grey, fontSize: 16),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(
+              Icons.search,
+              color: Colors.grey,
+            ),
             onPressed: () {
               showSearch(
                 context: context,
@@ -29,114 +38,116 @@ class _PlantListState extends State<PlantList> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const ListTile(
-                    leading: Icon(Icons.album),
-                    title: Text('스킨답서스'),
-                    subtitle: Text('한줄 설명'),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      TextButton(
-                        child: const Text('선택하기'),
-                        onPressed: () {/* ... */},
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/스킨답서스.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                    Text('스킨답서스',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text(
+                        '타고난 생명력과 관상용으로 인기가 높은 식물로,\n 식물을 처음 길러보신다면, 가장 추천드리는 친구입니다',
+                        style: TextStyle(color: Color(0xff6B7583))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        TextButton(
+                          child: const Text('선택하기'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterPage(
+                                        plantname: '스킨답서스',
+                                      )),
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-            Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const ListTile(
-                    leading: Icon(Icons.album),
-                    title: Text('산세베리아'),
-                    subtitle: Text('한줄 설명'),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      TextButton(
-                        child: const Text('선택하기'),
-                        onPressed: () {/* ... */},
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/안시리움핑크.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                    Text('안시리움핑크',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text(
+                        '타고난 생명력과 관상용으로 인기가 높은 식물로,\n 식물을 처음 길러보신다면, 가장 추천드리는 친구입니다',
+                        style: TextStyle(color: Color(0xff6B7583))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        TextButton(
+                          child: const Text('선택하기'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      RegisterPage(plantname: '안시리움핑크')),
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-            Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const ListTile(
-                    leading: Icon(Icons.album),
-                    title: Text('유칼립투스 실버드롭'),
-                    subtitle: Text('한줄 설명'),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      TextButton(
-                        child: const Text('선택하기'),
-                        onPressed: () {/* ... */},
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const ListTile(
-                    leading: Icon(Icons.album),
-                    title: Text('몬스테라 델리시오사'),
-                    subtitle: Text('한줄 설명'),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      TextButton(
-                        child: const Text('선택하기'),
-                        onPressed: () {/* ... */},
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const ListTile(
-                    leading: Icon(Icons.album),
-                    title: Text('뱅갈고무나무'),
-                    subtitle: Text('한줄 설명'),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      TextButton(
-                        child: const Text('선택하기'),
-                        onPressed: () {/* ... */},
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/이레카야자.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                    Text('이레카야자',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text(
+                        '타고난 생명력과 관상용으로 인기가 높은 식물로,\n 식물을 처음 길러보신다면, 가장 추천드리는 친구입니다',
+                        style: TextStyle(color: Color(0xff6B7583))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        TextButton(
+                          child: const Text('선택하기'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterPage(
+                                          plantname: '이레카자야',
+                                        )));
+                          },
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -146,6 +157,7 @@ class _PlantListState extends State<PlantList> {
   }
 }
 
+// 검색기능구현 관련
 class MySearchDelegate extends SearchDelegate {
   List<String> searchResults = [
     '스킨답서스',
@@ -157,7 +169,7 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget? buildLeading(BuildContext context) => IconButton(
-        icon: const Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back, color: Colors.grey),
         onPressed: () => close(context, null), // close search bar
       );
 
