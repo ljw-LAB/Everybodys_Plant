@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:everybodys_plant/login/plantlogin.dart';
 
 // class Scheduler_org_Page extends StatefulWidget {
 //   const Scheduler_org_Page({Key? key}) : super(key: key);
@@ -124,6 +125,27 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
         List<Plant> plantList = plantService.getByDate(selectedDate);
         return Scaffold(
           // 키보드가 올라올 때 화면 밀지 않도록 만들기(overflow 방지)
+          appBar: AppBar(
+            title: Text("Calendar"),
+            actions: [
+              TextButton(
+                child: Text(
+                  "로그아웃",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () {
+                  print("sign out");
+                  // 로그인 페이지로 이동
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginHome()),
+                  );
+                },
+              ),
+            ],
+          ),
           resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Column(

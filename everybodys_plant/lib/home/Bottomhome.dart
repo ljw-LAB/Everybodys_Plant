@@ -1,3 +1,4 @@
+import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:flutter/material.dart';
 
 class BottomHomePage extends StatefulWidget {
@@ -11,6 +12,27 @@ class _BottomHomePageState extends State<BottomHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Calendar"),
+        actions: [
+          TextButton(
+            child: Text(
+              "로그아웃",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            onPressed: () {
+              print("sign out");
+              // 로그인 페이지로 이동
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginHome()),
+              );
+            },
+          ),
+        ],
+      ),
       backgroundColor: Colors.blue,
       body: SafeArea(
         child: Column(

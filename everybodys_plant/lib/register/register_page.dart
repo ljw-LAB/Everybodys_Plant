@@ -1,3 +1,4 @@
+import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -136,17 +137,24 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("식물정보 등록",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        backgroundColor: Colors.grey,
+        title: Text("Calendar"),
         actions: [
-          IconButton(
-            icon: Icon(CupertinoIcons.xmark, color: Colors.black),
+          TextButton(
+            child: Text(
+              "로그아웃",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             onPressed: () {
-              Navigator.pop(context);
+              print("sign out");
+              // 로그인 페이지로 이동
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginHome()),
+              );
             },
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
