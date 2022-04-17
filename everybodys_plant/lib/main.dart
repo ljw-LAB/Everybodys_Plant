@@ -1,6 +1,7 @@
 // Library Import
 //import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:everybodys_plant/login/plantlogin.dart';
+import 'package:everybodys_plant/login/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
