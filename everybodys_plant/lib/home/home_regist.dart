@@ -40,8 +40,9 @@ var date_now_yy = DateFormat('yyyy-MM-dd').format(_date_now);
 var date_now_mm = DateFormat('MM-dd').format(_date_now);
 int date_interval = 23;
 String nickname = "귀요미";
+var _isVisible = true;
 
-class BottomHomePage extends StatelessWidget {
+class HomeRegistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -59,9 +60,8 @@ class BottomHomePage extends StatelessWidget {
                   height: 154,
                   width: 154,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/test_plant.jpg'),
-                      fit: BoxFit.cover,
+                    border: Border.all(
+                      color: primaryColorList[1],
                     ),
                     borderRadius: BorderRadius.circular(6),
                   ),
@@ -201,24 +201,9 @@ class BottomHomePage extends StatelessWidget {
               SizedBox(height: size * 3),
 
               //관련 정보
-              ElevatedButton(
-                onPressed: () async {
-                  const url =
-                      'mailto:dev-yakuza@gmail.com?subject=Hello&body=Test';
-                  if (await canLaunch(url)) {
-                    launch(url);
-                  } else {
-                    // ignore: avoid_print
-                    print("Can't launch $url");
-                  }
-                },
-                child: const Text('Mail to'),
-              ),
-
               GestureDetector(
                 onTap: () async {
-                  const url =
-                      'mailto:dev-yakuza@gmail.com?subject=Hello&body=Test';
+                  const url = 'https://flutter.dev/';
                   if (await canLaunch(url)) {
                     launch(url);
                   } else {
@@ -244,37 +229,59 @@ class BottomHomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: size * 3),
-              Container(
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: primaryColorList[2],
-                  borderRadius: BorderRadius.circular(6),
-                  boxShadow: [
-                    BoxShadow(
-                      color: shadowColorList[1].withOpacity(0.1),
-                      spreadRadius: 0,
-                      blurRadius: 5.0,
-                      offset: Offset(0, 10), // changes position of shadow
-                    ),
-                  ],
+              GestureDetector(
+                onTap: () async {
+                  const url = 'https://flutter.dev/';
+                  if (await canLaunch(url)) {
+                    launch(url);
+                  } else {
+                    // ignore: avoid_print
+                    print("Can't launch $url");
+                  }
+                },
+                child: Container(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: primaryColorList[2],
+                    borderRadius: BorderRadius.circular(6),
+                    boxShadow: [
+                      BoxShadow(
+                        color: shadowColorList[1].withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 10), // changes position of shadow
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: size * 3),
-              Container(
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: primaryColorList[2],
-                  borderRadius: BorderRadius.circular(6),
-                  boxShadow: [
-                    BoxShadow(
-                      color: shadowColorList[1].withOpacity(0.1),
-                      spreadRadius: 0,
-                      blurRadius: 5.0,
-                      offset: Offset(0, 10), // changes position of shadow
-                    ),
-                  ],
+              GestureDetector(
+                onTap: () async {
+                  const url = 'https://flutter.dev/';
+                  if (await canLaunch(url)) {
+                    launch(url);
+                  } else {
+                    // ignore: avoid_print
+                    print("Can't launch $url");
+                  }
+                },
+                child: Container(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: primaryColorList[2],
+                    borderRadius: BorderRadius.circular(6),
+                    boxShadow: [
+                      BoxShadow(
+                        color: shadowColorList[1].withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 10), // changes position of shadow
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: size * 3),

@@ -1,6 +1,6 @@
 // import 'dart:html';
 
-import 'package:everybodys_plant/home/Bottomhome.dart';
+import 'package:everybodys_plant/home/home_done.dart';
 
 import 'package:everybodys_plant/register/register_page.dart';
 import 'package:everybodys_plant/schedule/scheduler_org.dart';
@@ -16,7 +16,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 1;
   // 이동할 페이지
-  List _pages = [Plant_schedule_Page(), BottomHomePage(), RegisterPage()];
+  List _pages = [Plant_schedule_Page(), HomeDonePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.schedule), label: "스케쥴"),
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "홈"),
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "등록"),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "홈")
       ],
     );
 
