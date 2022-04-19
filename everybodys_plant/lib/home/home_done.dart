@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:everybodys_plant/register/plantlist.dart';
 import 'package:everybodys_plant/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -84,7 +85,13 @@ class HomeDonePage extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => RegisterPage(),
+                            //onPressed: () => PlantList(),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => PlantList())));
+                            },
                             icon: Icon(Icons.add_circle_outline_outlined),
                           ),
                         ],
