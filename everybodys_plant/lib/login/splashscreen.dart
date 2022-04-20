@@ -15,7 +15,7 @@ class splashscreen extends StatelessWidget {
         'assets/splashscreen_test.png',
         fit: BoxFit.cover,
       ),
-      splashIconSize: double.infinity,
+      splashIconSize: MediaQuery.of(context).size.height,
       nextScreen: LoginHome(),
       splashTransition: SplashTransition.fadeTransition,
     ));
