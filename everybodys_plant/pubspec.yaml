@@ -46,9 +46,6 @@ dependencies:
   table_calendar: ^3.0.5
   date_picker_timeline: ^1.2.3
   logger: ^0.7.0+2
-  firebase_messaging: ^11.2.6
-  flutter_local_notifications: ^9.3.2
-  get: ^4.6.1
 
 dev_dependencies:
   flutter_test:

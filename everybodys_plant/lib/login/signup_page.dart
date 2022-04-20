@@ -1,9 +1,7 @@
 //회원가입
-import 'package:everybodys_plant/certification/email_auth_service.dart';
 import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SignupPage extends StatefulWidget {
   SignupPage({Key? key}) : super(key: key);
@@ -34,181 +32,173 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Provider<EmailAuthService>(
-      create: (_) => EmailAuthService(),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Text(
-            "회원가입 정보입력",
-            style: TextStyle(
-              color: Colors.black,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          "회원가입 정보입력",
+          style: TextStyle(
+            color: Colors.black,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ListView(
-            children: [
-              SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ListView(
+          children: [
+            SizedBox(height: 20),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Flexible(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "이메일",
+                      hintText: "이메일을 입력하세요.",
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                    onPressed: () => setState(() => isVisible = !isVisible),
+                    style: TextButton.styleFrom(
+                      primary: Colors.black, // 텍스트 컬러
+                      shape: RoundedRectangleBorder(
+                        // 라운드형 보더
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: plantPrimaryColor,
+                    ),
+                    child: Text(
+                      "중복체크",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                Spacer(),
+              ],
+            ),
+            Visibility(
+              // ListView는 Visibility랑 호환X
+              visible: isVisible,
+              child: Column(
                 children: [
-                  Flexible(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "이메일",
-                        hintText: "이메일을 입력하세요.",
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextButton(
-                      onPressed: () => setState(() => isVisible = !isVisible),
-                      style: TextButton.styleFrom(
-                        primary: Colors.black, // 텍스트 컬러
-                        shape: RoundedRectangleBorder(
-                          // 라운드형 보더
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        backgroundColor: plantPrimaryColor,
-                      ),
-                      child: Text(
-                        "중복체크",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Spacer(),
+                  SizedBox(height: 50),
+                  _buildTextFormField2("이름을 입력해주세요", _NameController),
+                  SizedBox(height: 16),
+                  _buildTextFormField2("비밀번호를 입력해주세요", _signupforPWController),
+                  SizedBox(height: 16),
+                  _buildTextFormField2("비밀번호를 다시 입력해주세요", _cPasswordController),
+                  SizedBox(height: 16),
+                  _buildTextFormField2("연락처를 입력해주세요", _ContactnumberController),
                 ],
               ),
-              Visibility(
-                // ListView는 Visibility랑 호환X
-                visible: isVisible,
-                child: Column(
-                  children: [
-                    SizedBox(height: 50),
-                    _buildTextFormField2("이름을 입력해주세요", _NameController),
-                    SizedBox(height: 16),
-                    _buildTextFormField2(
-                        "비밀번호를 입력해주세요", _signupforPWController),
-                    SizedBox(height: 16),
-                    _buildTextFormField2(
-                        "비밀번호를 다시 입력해주세요", _cPasswordController),
-                    SizedBox(height: 16),
-                    _buildTextFormField2(
-                        "연락처를 입력해주세요", _ContactnumberController),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Visibility(
-                visible: isVisible,
-                child: TextButton(
-                  onPressed: () {
-                    //회원가입 완료 후 팝업
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(30),
-                          ),
+            ),
+            SizedBox(height: 20),
+            Visibility(
+              visible: isVisible,
+              child: TextButton(
+                onPressed: () {
+                  //회원가입 완료 후 팝업
+                  showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(30),
                         ),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: 200,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  "회원가입을 완료하였습니다.\n 가입해주셔서 감사합니다.",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 10),
-                                Padding(
-                                  padding: const EdgeInsets.all(20),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      // '확인'클릭 시 로그인 화면으로 돌아가기
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LoginHome()));
-                                    },
-                                    style: TextButton.styleFrom(
-                                      minimumSize:
-                                          const Size(double.infinity, 20),
-                                      primary: Colors.white, // 텍스트 컬러
-                                      shape: RoundedRectangleBorder(
-                                        // 라운드형 보더
-                                        borderRadius: BorderRadius.circular(
-                                            _cornerRadius),
-                                      ),
-                                      backgroundColor: plantPrimaryColor,
+                      ),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 200,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                "회원가입을 완료하였습니다.\n 가입해주셔서 감사합니다.",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: TextButton(
+                                  onPressed: () {
+                                    // '확인'클릭 시 로그인 화면으로 돌아가기
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => LoginHome()));
+                                  },
+                                  style: TextButton.styleFrom(
+                                    minimumSize:
+                                        const Size(double.infinity, 20),
+                                    primary: Colors.white, // 텍스트 컬러
+                                    shape: RoundedRectangleBorder(
+                                      // 라운드형 보더
+                                      borderRadius:
+                                          BorderRadius.circular(_cornerRadius),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(3),
-                                      child: Text(
-                                        "확인",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                    backgroundColor: plantPrimaryColor,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(3),
+                                    child: Text(
+                                      "확인",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          );
-                        });
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.white, // 텍스트 컬러
-                    shape: RoundedRectangleBorder(
-                      // 라운드형 보더
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    backgroundColor: plantPrimaryColor,
+                              ),
+                            ],
+                          ),
+                        );
+                      });
+                },
+                style: TextButton.styleFrom(
+                  primary: Colors.white, // 텍스트 컬러
+                  shape: RoundedRectangleBorder(
+                    // 라운드형 보더
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text("등록하기"),
+                  backgroundColor: plantPrimaryColor,
                 ),
+                child: Text("등록하기"),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
-}
 
-TextFormField _buildTextFormField2(
-    String labelText, TextEditingController controller) {
-  return TextFormField(
-    cursorColor: Colors.black, //커서 색깔
-    controller: controller,
-    validator: (text) {
-      if (text == null || text.isEmpty) {
-        return "입력창이 비어있어요!";
-      }
+  TextFormField _buildTextFormField2(
+      String labelText, TextEditingController controller) {
+    return TextFormField(
+      cursorColor: Colors.black, //커서 색깔
+      controller: controller,
+      validator: (text) {
+        if (text == null || text.isEmpty) {
+          return "입력창이 비어있어요!";
+        }
 
-      return null;
-    },
-    style: TextStyle(color: Colors.black45), //글씨 색깔
-    decoration: InputDecoration(
-      filled: true, // 텍스트필드 내부 색깔 채울건지 여부
-      fillColor: Colors.white, // 텍스트필드 색깔
-      labelText: labelText,
-    ),
-  );
+        return null;
+      },
+      style: TextStyle(color: Colors.black45), //글씨 색깔
+      decoration: InputDecoration(
+        filled: true, // 텍스트필드 내부 색깔 채울건지 여부
+        fillColor: Colors.white, // 텍스트필드 색깔
+        labelText: labelText,
+      ),
+    );
+  }
 }
