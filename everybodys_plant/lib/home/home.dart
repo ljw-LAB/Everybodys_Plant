@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'package:everybodys_plant/home/Bottomhome.dart';
 
 import 'package:everybodys_plant/register/register_page.dart';
@@ -40,69 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "등록"),
       ],
     );
-
-    //진짜 페이지 구성
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(48),
-        child: SafeArea(
-          child: Container(
-            height: 48,
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Row(
-                children: [
-                  //알람 버튼
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/secondlogo.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(child: SizedBox(width: 98)),
-                  //제목 버튼
-                  Container(
-                    width: 83.17,
-                    height: 16,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/secondlogo.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Expanded(child: SizedBox(width: 98)),
-                  //오른쪽 설정 버튼
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/secondlogo.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+      backgroundColor: Colors.blue,
       body: SafeArea(child: _pages.elementAt(_selectedIndex)),
       bottomNavigationBar: bottomNavigationBar,
-      backgroundColor: Colors.white,
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

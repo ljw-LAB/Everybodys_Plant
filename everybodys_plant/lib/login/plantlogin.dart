@@ -92,7 +92,7 @@ class _LoginHomeState extends State<LoginHome> {
                     ),
                     onPressed: () {
                       // 회원가입
-                      authService.signUp(
+                      EmailAuthService.signUp(
                         email: _emailController.text,
                         password: _passwordController.text,
                         onSuccess: () {

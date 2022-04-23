@@ -58,6 +58,9 @@ dependencies:
   logger: ^1.1.0
   firebase_image: 1.1.1
   url_launcher: ^6.0.20
+  firebase_messaging: ^11.2.14
+  get: ^4.6.1
+  animated_splash_screen: ^1.2.0
 
 dev_dependencies:
   flutter_test:
