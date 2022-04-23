@@ -12,7 +12,8 @@ import 'package:geolocator/geolocator.dart';
 //Pages Import
 //import 'package:everybodys_plant/scheduler.dart';
 //import 'package:everybodys_plant/scheduler_org.dart';
-import 'package:everybodys_plant/service/schedule_service.dart';
+// import 'package:everybodys_plant/service/schedule_service.dart';
+import 'package:everybodys_plant/service/plant_service.dart';
 
 //void main() => runApp(Schedule());
 
