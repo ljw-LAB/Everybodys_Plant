@@ -23,9 +23,16 @@ class _RegisterPageState extends State<RegisterPage> {
       TextEditingController(); // 애칭 입력 값 가져오기 위한 컨트롤러
 
   // 재배 조건 선택 옵션
-  final List<String> potitems = ['화경/수경재배', '토분', '플라스틱 화분', '철제/시멘트 화분'];
+  final List<String> potitems = [
+    '미지정',
+    '화경/수경재배',
+    '토분',
+    '플라스틱 화분',
+    '철제/시멘트 화분'
+  ];
   // 재배 장소 선택 옵션
   final List<String> spaceitems = [
+    '미지정',
     '방/원룸',
     '거실',
     '욕실',
@@ -38,8 +45,8 @@ class _RegisterPageState extends State<RegisterPage> {
   // 분갈이 주기
   final List<String> perioditems = ['미지정', '6개월', '1년', '2년'];
   String perioditems_value = '미지정';
-  String spaceitems_value = '방/원룸';
-  String potitems_value = '화경/수경재배';
+  String spaceitems_value = '미지정';
+  String potitems_value = '미지정';
   String _selectedValue = '1';
   String? error;
   DateTime? _selectedDate1; //마지막 물준날 날짜
