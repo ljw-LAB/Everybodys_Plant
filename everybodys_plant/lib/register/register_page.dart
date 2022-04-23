@@ -145,6 +145,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final formKey = GlobalKey<FormState>(); // Form - TextFormField 위젯 사용을 위한 변수
 
+  String memo = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -647,7 +649,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       // height: 40,
                       // width: 370,
                       child: renderTextFormField(
-                        onSaved: (val) {},
+                        onSaved: (val) {
+                          setState(() {
+                            this.memo = val;
+                          });
+                        },
                         validator: (val) {
                           return null;
                         },
@@ -674,7 +680,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: TextButton(
                           onPressed: () {
                             // 식물 등록하기 버튼 클릭 시
-
                             String nickname = textController1.text;
                             if (nickname.isEmpty) {
                               setState(() {
@@ -683,7 +688,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             } else {
                               setState(() {
                                 error = null; //애칭이 입력된 경우 에러 메시지 숨김
+                                formKey.currentState?.save(); // 메모 저장
                               });
+
                               // 다이얼로그 창 띄우기
                               AlertDialog alertDialog = AlertDialog(
                                 shape: RoundedRectangleBorder(
@@ -712,7 +719,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                                           nickname:
                                                               nickname, // 홈에 애칭 변수 전달
                                                           plantname:
-                                                              '${widget.plantname}' // 홈에 식물명 변수 전달
+                                                              '${widget.plantname}',
+                                                          memo:
+                                                              memo // 홈에 식물명 변수 전달
                                                           ),
                                                 ));
                                           }, // nickname(애칭) 변수 반환하며 화면 종료
