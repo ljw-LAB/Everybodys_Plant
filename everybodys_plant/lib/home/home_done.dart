@@ -47,7 +47,21 @@ int date_interval = 23; //물주기 날짜
 String nickname = "귀요미"; //닉네임
 var _isVisible = true; //등록 여부에 따라 화면 다르게 보이기
 
-class HomeDonePage extends StatelessWidget {
+class HomeDonePage extends StatefulWidget {
+  final String? nickname;
+  final String? plantname;
+  final String? memo;
+  const HomeDonePage(
+      {Key? key,
+      @required this.nickname,
+      @required this.plantname,
+      @required this.memo})
+      : super(key: key);
+  @override
+  State<HomeDonePage> createState() => _HomeDonePageState();
+}
+
+class _HomeDonePageState extends State<HomeDonePage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
