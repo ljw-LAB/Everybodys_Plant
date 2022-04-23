@@ -1,3 +1,5 @@
+// 세팅페이지-푸시알람/개인정보수정/로그아웃/회원탈퇴
+
 import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

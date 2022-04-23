@@ -1,5 +1,6 @@
 // Library Import
 //import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:everybodys_plant/certification/email_auth_service.dart';
 import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:everybodys_plant/login/splashscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,6 +28,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => PlantService(prefs)),
+        ChangeNotifierProvider(create: (context) => EmailAuthService()),
       ],
       child: const MyApp(),
     ),

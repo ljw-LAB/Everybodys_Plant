@@ -73,7 +73,7 @@ class EmailAuthService extends ChangeNotifier {
     }
   }
 
-  static void signIn({
+  void signIn({
     required String email, // 이메일
     required String password, // 비밀번호
     required Function onSuccess, // 로그인 성공시 호출되는 함수
@@ -95,12 +95,12 @@ class EmailAuthService extends ChangeNotifier {
         email: email,
         password: password,
       );
-      if (signinResult.user?.emailVerified == true) {
-        onSuccess(); // 성공 함수 호출
-        notifyListeners(); // 로그인 상태 변경 알림
-      } else {
-        onError('이메일 인증 실패');
-      }
+//      if (signinResult.user?.emailVerified == true) {
+      onSuccess(); // 성공 함수 호출
+      notifyListeners(); // 로그인 상태 변경 알림
+//      } else {
+//        onError('이메일 인증 실패');
+//      }
     } on FirebaseAuthException catch (e) {
       // firebase auth 에러 발생
       onError(e.message!);

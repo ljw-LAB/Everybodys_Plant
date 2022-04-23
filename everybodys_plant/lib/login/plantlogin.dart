@@ -1,4 +1,4 @@
-//로그인 홈화면
+//로그인 홈화면/아이디찾기/비번찾기
 import 'package:everybodys_plant/login/setting_page.dart';
 import 'package:everybodys_plant/login/signup_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,153 +38,159 @@ class _LoginHomeState extends State<LoginHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Provider<EmailAuthService>(
-      create: (_) => EmailAuthService(),
-      child: Scaffold(
-        // 텍스트필드를 쳤을때 키보드가 올라오면 29픽셀이 오버플로우되는 현상
-        // 이를 해결하기 위해 Scaffold 의 resizeToAvoidBottomInset: false 속성 값 적용
-        // true가 디폴트값이기 때문에 false로 안하면 overflow에러 생김
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-            elevation: 0, //앱바 그림지 효과지우기
-            centerTitle: true,
-            backgroundColor: Colors.white),
-        body: SafeArea(
-          child: Form(
-            key: _FormKey,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 10),
-                  Text(
-                    "이메일 주소를 입력해주세요",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+    return Consumer<EmailAuthService>(
+      builder: (context, service, child) {
+        final user = service.currentUser();
+        return Scaffold(
+          // 텍스트필드를 쳤을때 키보드가 올라오면 29픽셀이 오버플로우되는 현상
+          // 이를 해결하기 위해 Scaffold 의 resizeToAvoidBottomInset: false 속성 값 적용
+          // true가 디폴트값이기 때문에 false로 안하면 overflow에러 생김
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+              elevation: 0, //앱바 그림지 효과지우기
+              centerTitle: true,
+              backgroundColor: Colors.white),
+          body: SafeArea(
+            child: Form(
+              key: _FormKey,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 10),
+                    Text(
+                      "이메일 주소를 입력해주세요",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: size * 12),
-                  _buildTextFormField(
-                      "아이디(이메일)", emailController), //중복사용을 위해 메소드로 추출
-                  SizedBox(height: 8),
-                  _buildTextFormField("비밀번호", passwordController),
-                  SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.all(1),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                //MaterialPageRoute 안정장치로 Builder를사용해 Route기능으로
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FindID()));
-                          },
-                          style: TextButton.styleFrom(primary: Colors.black),
-                          child: Text(
-                            "아이디",
+                    SizedBox(height: size * 12),
+                    _buildTextFormField(
+                        "아이디(이메일)", emailController), //중복사용을 위해 메소드로 추출
+                    SizedBox(height: 8),
+                    _buildTextFormField("비밀번호", passwordController),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.all(1),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  //MaterialPageRoute 안정장치로 Builder를사용해 Route기능으로
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FindID()));
+                            },
+                            style: TextButton.styleFrom(primary: Colors.black),
+                            child: Text(
+                              "아이디",
+                              style: TextStyle(
+                                color: Colors.black45,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "|",
                             style: TextStyle(
                               color: Colors.black45,
                             ),
                           ),
-                        ),
-                        Text(
-                          "|",
-                          style: TextStyle(
-                            color: Colors.black45,
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FindPassword()));
+                            },
+                            style: TextButton.styleFrom(primary: Colors.black),
+                            child: Text(
+                              "비밀번호",
+                              style: TextStyle(
+                                color: Colors.black45,
+                              ),
+                            ),
                           ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FindPassword()));
-                          },
-                          style: TextButton.styleFrom(primary: Colors.black),
-                          child: Text(
-                            "비밀번호",
+                          Text(
+                            "찾기",
                             style: TextStyle(
                               color: Colors.black45,
                             ),
                           ),
-                        ),
-                        Text(
-                          "찾기",
-                          style: TextStyle(
-                            color: Colors.black45,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      EmailAuthService.signIn(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        onSuccess: () {
-                          // 로그인 성공
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("로그인 성공"),
-                          ));
-                        },
-                        onError: (err) {
-                          // 에러 발생
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(err),
-                          ));
-                        },
-                      );
-                      //메인화면으로 이동하기-SettingPage설정페이지test용=>추후 MyHomePage로 변경
-                      //                    Navigator.push(
-                      //                        context,
-                      //                        MaterialPageRoute(
-                      //                            builder: (context) => MyHomePage()));
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 58,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: Colors.transparent,
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        service.signIn(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          onSuccess: () {
+                            // 로그인 성공
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SettingPage()));
+                            //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            //  content: Text("로그인 성공"),
+                            // ));
+                          },
+                          onError: (err) {
+                            // 에러 발생
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(err),
+                            ));
+                          },
+                        );
+                        //메인화면으로 이동하기-SettingPage설정페이지test용=>추후 MyHomePage로 변경
+                        //                    Navigator.push(
+                        //                        context,
+                        //                        MaterialPageRoute(
+                        //                            builder: (context) => MyHomePage()));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 58,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: Colors.transparent,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                            color: plantPrimaryColor),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "로그인하기",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
                           ),
-                          borderRadius: BorderRadius.circular(8),
-                          color: plantPrimaryColor),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "로그인하기",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
                         ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignupPage()));
-                      },
-                      style: TextButton.styleFrom(primary: plantPrimaryColor),
-                      child: Text("이메일로 가입"),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignupPage()));
+                        },
+                        style: TextButton.styleFrom(primary: plantPrimaryColor),
+                        child: Text("이메일로 가입"),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
