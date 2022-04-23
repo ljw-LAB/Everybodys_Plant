@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:everybodys_plant/home/home.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:everybodys_plant/certification/email_auth_service.dart';
+import 'package:provider/provider.dart';
 
 final size = 4;
 Color plantPrimaryColor = Color(0xff69D5E7);
@@ -23,9 +24,9 @@ class _LoginHomeState extends State<LoginHome> {
   final GlobalKey<NavigatorState> _navigator = GlobalKey<NavigatorState>();
 
   // 유저가 텍스트필드에 뭘 입력했는지가져올 수 있음
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   //oop를 알면 이해 쉬움 => 앱 실행후 아래 OutlineInputBorde가 생성되기 전에 이미 생성되어있음
   final double _cornerRadius = 8.0;
@@ -37,8 +38,9 @@ class _LoginHomeState extends State<LoginHome> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Provider<EmailAuthService>(
+      create: (_) => EmailAuthService(),
+      child: Scaffold(
         // 텍스트필드를 쳤을때 키보드가 올라오면 29픽셀이 오버플로우되는 현상
         // 이를 해결하기 위해 Scaffold 의 resizeToAvoidBottomInset: false 속성 값 적용
         // true가 디폴트값이기 때문에 false로 안하면 overflow에러 생김
@@ -65,9 +67,9 @@ class _LoginHomeState extends State<LoginHome> {
                   ),
                   SizedBox(height: size * 12),
                   _buildTextFormField(
-                      "아이디(이메일)", _emailController), //중복사용을 위해 메소드로 추출
+                      "아이디(이메일)", emailController), //중복사용을 위해 메소드로 추출
                   SizedBox(height: 8),
-                  _buildTextFormField("비밀번호", _passwordController),
+                  _buildTextFormField("비밀번호", passwordController),
                   SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.all(1),
@@ -123,11 +125,27 @@ class _LoginHomeState extends State<LoginHome> {
                   Spacer(),
                   GestureDetector(
                     onTap: () {
-                      //메인화면으로 이동하기-설정페이지test용=>추후 MyHomePage로 변경
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingPage()));
+                      EmailAuthService.signIn(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        onSuccess: () {
+                          // 로그인 성공
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("로그인 성공"),
+                          ));
+                        },
+                        onError: (err) {
+                          // 에러 발생
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(err),
+                          ));
+                        },
+                      );
+                      //메인화면으로 이동하기-SettingPage설정페이지test용=>추후 MyHomePage로 변경
+                      //                    Navigator.push(
+                      //                        context,
+                      //                        MaterialPageRoute(
+                      //                            builder: (context) => MyHomePage()));
                     },
                     child: Container(
                       width: double.infinity,
@@ -169,31 +187,31 @@ class _LoginHomeState extends State<LoginHome> {
       ),
     );
   }
+}
 
-  TextFormField _buildTextFormField(
-      String labelText, TextEditingController controller) {
-    return TextFormField(
-      cursorColor: plantPrimaryColor, //커서 색깔
-      controller: controller,
-      validator: (text) {
-        if (text == null || text.isEmpty) {
-          return "입력창이 비어있어요!";
-        }
+TextFormField _buildTextFormField(
+    String labelText, TextEditingController controller) {
+  return TextFormField(
+    cursorColor: plantPrimaryColor, //커서 색깔
+    controller: controller,
+    validator: (text) {
+      if (text == null || text.isEmpty) {
+        return "입력창이 비어있어요!";
+      }
 
-        return null;
-      },
-      style: TextStyle(color: Colors.black45), //글씨 색깔
-      decoration: InputDecoration(
-        filled: true, // 텍스트필드 내부 색깔 채울건지 여부
-        fillColor: Colors.black12, // 텍스트필드 색깔
-        labelText: labelText,
-        border: _border,
-        enabledBorder: _border, //바깥보더사라짐
-        focusedBorder: _border,
-        labelStyle: TextStyle(color: Colors.black45),
-      ),
-    );
-  }
+      return null;
+    },
+    style: TextStyle(color: Colors.black45), //글씨 색깔
+    decoration: InputDecoration(
+      filled: true, // 텍스트필드 내부 색깔 채울건지 여부
+      fillColor: Colors.black12, // 텍스트필드 색깔
+      labelText: labelText,
+      // border: _border,
+      //  enabledBorder: _border, //바깥보더사라짐
+      //  focusedBorder: _border,
+      labelStyle: TextStyle(color: Colors.black45),
+    ),
+  );
 }
 
 //아이디 찾기

@@ -12,7 +12,7 @@ class splashscreen extends StatelessWidget {
         home: AnimatedSplashScreen(
       duration: 6000, //머무는 시간
       splash: Image.asset(
-        'assets/reretest.png',
+        'assets/splashtest.png',
         fit: BoxFit.cover,
       ),
       splashIconSize: double.infinity,
