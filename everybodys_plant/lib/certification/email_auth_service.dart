@@ -7,7 +7,7 @@ class EmailAuthService extends ChangeNotifier {
     return FirebaseAuth.instance.currentUser;
   }
 
-  void signUp({
+  static void signUp({
     required String email, // 이메일
     required String password, // 비밀번호
     required Function onSuccess, // 가입 성공시 호출되는 함수
@@ -95,3 +95,6 @@ class EmailAuthService extends ChangeNotifier {
     }
   }
 }
+
+void signOut() async {}
+//

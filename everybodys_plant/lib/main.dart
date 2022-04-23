@@ -2,22 +2,25 @@
 //import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:everybodys_plant/login/splashscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 
-//Pages Import
+import 'package:get/get.dart'; //=>controller sample
+import 'controllers/app_controller.dart';
 //import 'package:everybodys_plant/scheduler.dart';
 //import 'package:everybodys_plant/scheduler_org.dart';
 import 'package:everybodys_plant/service/schedule_service.dart';
 
 //void main() => runApp(Schedule());
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // sharedPreferences 인스턴스 불러오기
+  await Firebase.initializeApp();
+  //initilization of Firebase app
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   runApp(

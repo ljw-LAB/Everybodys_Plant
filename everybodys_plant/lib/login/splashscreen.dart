@@ -10,9 +10,9 @@ class splashscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: AnimatedSplashScreen(
-      duration: 3000, //머무는 시간
+      duration: 6000, //머무는 시간
       splash: Image.asset(
-        'assets/splashscreen_test.png',
+        'assets/reretest.png',
         fit: BoxFit.cover,
       ),
       splashIconSize: double.infinity,
