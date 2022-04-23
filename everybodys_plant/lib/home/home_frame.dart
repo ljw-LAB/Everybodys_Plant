@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 24,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/secondlogo.png'),
+                          image: AssetImage('assets/Bell.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 16,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/secondlogo.png'),
+                        image: AssetImage('assets/title.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -82,14 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   Expanded(child: SizedBox(width: 98)),
 
                   //오른쪽 설정 버튼
-                  TextButton(
-                    child: Text(
-                      "로그아웃",
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                    onPressed: () {
+                  GestureDetector(
+                    onTap: () {
                       print("sign out");
                       // 로그인 페이지로 이동
                       Navigator.pushReplacement(
@@ -97,7 +91,33 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => LoginHome()),
                       );
                     },
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/Setting.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
+                  // TextButton(
+                  //   child: Text(
+                  //     "로그아웃",
+                  //     style: TextStyle(
+                  //       color: Colors.black,
+                  //     ),
+                  //   ),
+                  //   onPressed: () {
+                  //     print("sign out");
+                  //     // 로그인 페이지로 이동
+                  //     Navigator.pushReplacement(
+                  //       context,
+                  //       MaterialPageRoute(builder: (context) => LoginHome()),
+                  //     );
+                  //   },
+                  // ),
                   // GestureDetector(
                   //   onTap: () {},
                   //   child: Container(

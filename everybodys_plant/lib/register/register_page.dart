@@ -7,7 +7,6 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:camera/camera.dart';
 import 'dart:io';
 import 'package:everybodys_plant/register/plantlist.dart';
-import '../home/Bottomhome.dart';
 import 'renderTextFormField.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -166,20 +165,10 @@ class _RegisterPageState extends State<RegisterPage> {
         centerTitle: true,
         backgroundColor: Colors.white,
         actions: [
-          TextButton(
-            child: Text(
-              "로그아웃",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+          IconButton(
+            icon: Icon(CupertinoIcons.xmark, color: Colors.black),
             onPressed: () {
-              print("sign out");
-              // 로그인 페이지로 이동
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginHome()),
-              );
+              Navigator.pop(context);
             },
           ),
         ],
