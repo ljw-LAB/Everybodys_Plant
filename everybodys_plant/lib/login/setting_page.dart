@@ -4,6 +4,8 @@ import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../certification/email_auth_service.dart';
+
 class SettingPage extends StatefulWidget {
   SettingPage({Key? key}) : super(key: key);
 

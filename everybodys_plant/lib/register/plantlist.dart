@@ -13,21 +13,15 @@ class _PlantListState extends State<PlantList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calendar"),
+        backgroundColor: Colors.grey,
+        title: const Text('Search'),
         actions: [
-          TextButton(
-            child: Text(
-              "로그아웃",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+          IconButton(
+            icon: const Icon(Icons.search),
             onPressed: () {
-              print("sign out");
-              // 로그인 페이지로 이동
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginHome()),
+              showSearch(
+                context: context,
+                delegate: MySearchDelegate(),
               );
             },
           ),

@@ -1,8 +1,7 @@
 // Library Import
 //import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:everybodys_plant/certification/email_auth_service.dart';
-import 'package:everybodys_plant/login/plantlogin.dart';
-import 'package:everybodys_plant/schedule/scheduler_org.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 
 //Pages Import
-//import 'package:everybodys_plant/scheduler.dart';
-//import 'package:everybodys_plant/scheduler_org.dart';
-// import 'package:everybodys_plant/service/schedule_service.dart';
 import 'package:everybodys_plant/service/plant_service.dart';
+import 'package:everybodys_plant/login/plantlogin.dart';
+import 'package:everybodys_plant/schedule/scheduler_org.dart';
+import 'package:everybodys_plant/certification/email_auth_service.dart';
+import 'package:everybodys_plant/login/splashscreen.dart';
 
 //void main() => runApp(Schedule());
 
@@ -39,10 +39,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.read<EmailAuthService>().currentUser();
+    // final user = context.read<EmailAuthService>().currentUser();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: user == null ? Plant_schedule_Page() : LoginHome(),
+      home: splashscreen(),
+      //home: user == null ? Plant_schedule_Page() : LoginHome(),
       //home: EmailAuthService(),
       //home: LoginHome(),
       //home: Plant_schedule_Page(),

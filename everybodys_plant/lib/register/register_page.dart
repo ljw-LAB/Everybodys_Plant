@@ -137,22 +137,15 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calendar"),
+        title: Text("식물정보 등록",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        backgroundColor: Colors.grey,
         actions: [
-          TextButton(
-            child: Text(
-              "로그아웃",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+          IconButton(
+            icon: Icon(CupertinoIcons.xmark, color: Colors.black),
             onPressed: () {
-              print("sign out");
-              // 로그인 페이지로 이동
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginHome()),
-              );
+              Navigator.pop(context);
             },
           ),
         ],
