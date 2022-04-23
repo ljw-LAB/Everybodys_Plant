@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:everybodys_plant/login/plantlogin.dart';
 
 // class Scheduler_org_Page extends StatefulWidget {
 //   const Scheduler_org_Page({Key? key}) : super(key: key);
@@ -222,13 +223,13 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
           ),
 
           /// Floating Action Button
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.create),
-            backgroundColor: Colors.indigo,
-            onPressed: () {
-              showCreateDialog(plantService);
-            },
-          ),
+          // floatingActionButton: FloatingActionButton(
+          //   child: Icon(Icons.create),
+          //   backgroundColor: Colors.indigo,
+          //   onPressed: () {
+          //     showCreateDialog(plantService);
+          //   },
+          // ),
         );
       },
     );

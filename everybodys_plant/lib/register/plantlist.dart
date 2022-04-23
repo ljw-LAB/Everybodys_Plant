@@ -1,3 +1,4 @@
+import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:flutter/material.dart';
 
 class PlantList extends StatefulWidget {
@@ -12,15 +13,21 @@ class _PlantListState extends State<PlantList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: const Text('Search'),
+        title: Text("Calendar"),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
+          TextButton(
+            child: Text(
+              "로그아웃",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             onPressed: () {
-              showSearch(
-                context: context,
-                delegate: MySearchDelegate(),
+              print("sign out");
+              // 로그인 페이지로 이동
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginHome()),
               );
             },
           ),

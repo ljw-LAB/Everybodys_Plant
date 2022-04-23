@@ -1,4 +1,7 @@
+// 기본 홈 화면
+
 import 'dart:core';
+// import 'dart:html';
 
 import 'package:everybodys_plant/register/plantlist.dart';
 import 'package:everybodys_plant/register/register_page.dart';
@@ -37,12 +40,12 @@ Color line = Color(0xffEBEBED);
 final size = 4;
 
 //Date 처리
-DateTime _date_now = DateTime.now();
-var date_now_yy = DateFormat('yyyy-MM-dd').format(_date_now);
-var date_now_mm = DateFormat('MM-dd').format(_date_now);
-int date_interval = 23;
-String nickname = "귀요미";
-var _isVisible = true;
+DateTime _date_now = DateTime.now(); //날짜
+var date_now_yy = DateFormat('yyyy-MM-dd').format(_date_now); //날짜 format
+var date_now_mm = DateFormat('MM-dd').format(_date_now); //날짜 format
+int date_interval = 23; //물주기 날짜
+String nickname = "귀요미"; //닉네임
+var _isVisible = true; //등록 여부에 따라 화면 다르게 보이기
 
 class HomeDonePage extends StatelessWidget {
   @override
@@ -295,7 +298,10 @@ class HomeDonePage extends StatelessWidget {
                       height: 100,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: emotionColorList[0].withOpacity(0.4),
+                        image: DecorationImage(
+                          image: AssetImage('assets/banner_1.png'),
+                          fit: BoxFit.fill,
+                        ),
                         borderRadius: BorderRadius.circular(6),
                       ),
                     ),
@@ -338,7 +344,10 @@ class HomeDonePage extends StatelessWidget {
                       height: 100,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: emotionColorList[0].withOpacity(0.4),
+                        image: DecorationImage(
+                          image: AssetImage('assets/banner_2.png'),
+                          fit: BoxFit.fill,
+                        ),
                         borderRadius: BorderRadius.circular(6),
                       ),
                     ),
@@ -346,47 +355,36 @@ class HomeDonePage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: size * 3),
-              Stack(
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      const url = 'https://flutter.dev/';
-                      if (await canLaunch(url)) {
-                        launch(url);
-                      } else {
-                        // ignore: avoid_print
-                        print("Can't launch $url");
-                      }
-                    },
-                    child: Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: primaryColorList[2],
-                        borderRadius: BorderRadius.circular(6),
-                        boxShadow: [
-                          BoxShadow(
-                            color: shadowColorList[1].withOpacity(0.1),
-                            spreadRadius: 0,
-                            blurRadius: 5.0,
-                            offset: Offset(0, 10), // changes position of shadow
-                          ),
-                        ],
-                      ),
+
+              Visibility(
+                visible: !_isVisible,
+                child: GestureDetector(
+                  onTap: () async {
+                    const url = 'https://flutter.dev/';
+                    if (await canLaunch(url)) {
+                      launch(url);
+                    } else {
+                      // ignore: avoid_print
+                      print("Can't launch $url");
+                    }
+                  },
+                  child: Container(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: primaryColorList[2],
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [
+                        BoxShadow(
+                          color: shadowColorList[1].withOpacity(0.1),
+                          spreadRadius: 0,
+                          blurRadius: 5.0,
+                          offset: Offset(0, 10), // changes position of shadow
+                        ),
+                      ],
                     ),
                   ),
-                  Visibility(
-                    visible: _isVisible,
-                    child: Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: emotionColorList[0].withOpacity(0.4),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                  )
-                ],
+                ),
               ),
               SizedBox(height: size * 3),
             ],
@@ -396,57 +394,3 @@ class HomeDonePage extends StatelessWidget {
     );
   }
 }
-
-// Widget _pageOfTop() {
-//   return Column(
-//     children: <Widget>[
-//       // Expanded(child: SizedBox()),
-//       Container(
-//         height: 154,
-//         width: 154,
-//         decoration: BoxDecoration(
-//           image: DecorationImage(
-//             image: AssetImage('assets/test_plant.jpg'),
-//             fit: BoxFit.cover,
-//           ),
-//           borderRadius: BorderRadius.circular(6),
-//         ),
-//       ),
-//       // Expanded(child: SizedBox()),
-//       Container(
-//         height: 21,
-//         width: 82,
-//         decoration: BoxDecoration(border: Border.all(color: colorList[2])),
-//         child: Padding(
-//           padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
-//           child: FittedBox(
-//             fit: BoxFit.fitWidth,
-//             child: Text(
-//               '함께한지 + $date_interval',
-//               style: TextStyle(color: colorList[2]),
-//             ),
-//           ),
-//         ),
-//       )
-//     ],
-//   );
-// }
-
-// Widget _pageOfMiddle() {
-//   return Text('pageOfMiddle');
-// }
-
-// Widget _pageOfBottom() {
-//   final items = List.generate(15, (i) {
-//     var num = i + 1;
-//     return ListTile(
-//       leading: Icon(Icons.notifications),
-//       title: Text('$num번째 ListTile'),
-//     );
-//   });
-//   return ListView(
-//     physics: NeverScrollableScrollPhysics(), // 해당 리스트의 스크롤 금지
-//     shrinkWrap: true, // 상위 리스트 위젯이 별도로 있다면 true 로 설정해야 스크롤이 가능
-//     children: items,
-//   );
-// }
