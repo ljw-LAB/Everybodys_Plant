@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+final size = 4;
+Color plantPrimaryColor = Color(0xff69D5E7);
+
 class EmailAuthService extends ChangeNotifier {
   User? currentUser() {
     // 현재 유저(로그인 되지 않은 경우 null 반환)

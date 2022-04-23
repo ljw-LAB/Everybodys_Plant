@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'package:everybodys_plant/home/Bottomhome.dart';
 
 import 'package:everybodys_plant/register/register_page.dart';
