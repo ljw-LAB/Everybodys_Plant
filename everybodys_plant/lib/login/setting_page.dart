@@ -3,6 +3,7 @@
 import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../certification/email_auth_service.dart';
 
@@ -18,85 +19,91 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0, //앱바 그림지 효과지우기
-        backgroundColor: Colors.white,
-        title: Text(
-          "설정",
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+    return Consumer<EmailAuthService>(
+      builder: (context, service, child) {
+        final user = service.currentUser();
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            elevation: 0, //앱바 그림지 효과지우기
+            backgroundColor: Colors.white,
+            title: Text(
+              "설정",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {},
+                      style: TextButton.styleFrom(primary: Colors.black),
+                      child: Text(
+                        "푸쉬알림 On/Off",
+                        style: TextStyle(color: Colors.black54),
+                      ),
+                    ),
+                    Spacer(),
+                    Switch(
+                        value: switchValue,
+                        onChanged: (value) {
+                          setState(() {
+                            switchValue = value;
+                          });
+                        })
+                  ],
+                ),
+                Divider(
+                  color: Colors.black12,
+                ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => InfoEdit()));
+                  },
                   style: TextButton.styleFrom(primary: Colors.black),
                   child: Text(
-                    "푸쉬알림 On/Off",
+                    "개인정보 수정",
                     style: TextStyle(color: Colors.black54),
                   ),
                 ),
-                Spacer(),
-                Switch(
-                    value: switchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        switchValue = value;
-                      });
-                    })
+                Divider(
+                  color: Colors.black12,
+                ),
+                TextButton(
+                  onPressed: () {
+                    service.signOut();
+                  },
+                  style: TextButton.styleFrom(primary: Colors.black),
+                  child: Text(
+                    "로그아웃",
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                ),
+                Divider(
+                  color: Colors.black12,
+                ),
+                TextButton(
+                  onPressed: () {
+                    service.withdrawalAccount();
+                  },
+                  style: TextButton.styleFrom(primary: Colors.black),
+                  child: Text(
+                    "회원탈퇴",
+                    style: TextStyle(
+                      color: Color(0xffEA4C09), //컬러값 지정
+                    ),
+                  ),
+                ),
               ],
             ),
-            Divider(
-              color: Colors.black12,
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => InfoEdit()));
-              },
-              style: TextButton.styleFrom(primary: Colors.black),
-              child: Text(
-                "개인정보 수정",
-                style: TextStyle(color: Colors.black54),
-              ),
-            ),
-            Divider(
-              color: Colors.black12,
-            ),
-            TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(primary: Colors.black),
-              child: Text(
-                "로그아웃",
-                style: TextStyle(color: Colors.black54),
-              ),
-            ),
-            Divider(
-              color: Colors.black12,
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Withdrawal()));
-              },
-              style: TextButton.styleFrom(primary: Colors.black),
-              child: Text(
-                "회원탈퇴",
-                style: TextStyle(
-                  color: Color(0xffEA4C09), //컬러값 지정
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
