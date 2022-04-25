@@ -1,5 +1,6 @@
 // import 'package:everybodys_plant/service/schedule_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 // import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -10,12 +11,16 @@ import 'package:everybodys_plant/service/plant_service.dart';
 
 // ignore: camel_case_types
 class Plant_schedule_Page extends StatefulWidget {
-  final String? test_plantname;
-  final String? test_nickname;
+  final PlantService? test_service;
+  // final String? test_plantname;
+  // final String? test_plant
+  // final String? test_nickname;
   // final String? test_memo;
 
   const Plant_schedule_Page(
-      {Key? key, @required this.test_plantname, @required this.test_nickname})
+      // {Key? key, @required this.test_plantname, @required this.test_nickname, , @required this.test_nickname})
+      {Key? key,
+      @required this.test_service})
       : super(key: key);
 
   @override
@@ -106,10 +111,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                   child: plantList.isEmpty
                       ? Center(
                           child: Text(
-                            widget.test_plantname! +
-                                "\n" +
-                                widget.test_nickname! +
-                                "\n",
+                            "식물을 등록해주세요",
+                            // widget.test_service!.PlantList[0].plantname + widget.test_service!.PlantList[0].nickname,
+                            // widget.test_plantname! +
+                            //     "\n" +
+                            //     widget.test_nickname! +
+                            //     "\n",
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 18,
@@ -125,7 +132,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                             return ListTile(
                               /// text
                               title: Text(
-                                widget.test_plantname!,
+                                // widget.test_plantname!,
+                                plant.plantname +
+                                    "\n" +
+                                    plant.nickname +
+                                    "\n" +
+                                    plant.skillchecked,
                                 // plant.plantname.toString(),
                                 // createPlant(plantService)
                                 // widget.test_plantname.toString(),
