@@ -745,29 +745,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        // Plant_schedule_Page(
-                                                        //   test_plantname:
-                                                        //       widget.plantname,
-                                                        // )
-                                                        // Plant_schedule_Page(
-                                                        // test_plantname: test_plantservice
-                                                        // widget.plantname,
-                                                        // test_nickname:
-                                                        //     nickname,
-                                                        // test_memo: memo
-                                                        // )
                                                         Plant_schedule_Page(
                                                             test_service:
-                                                                plantService)
-                                                    // HomeDonePage(
-                                                    //     nickname:
-                                                    //         nickname, // 홈에 애칭 변수 전달
-                                                    //     plantname:
-                                                    //         '${widget.plantname}',
-                                                    //     memo:
-                                                    //         memo // 홈에 식물명 변수 전달
-                                                    //     ),
-                                                    ),
+                                                                plantService)),
                                               );
                                             }, // nickname(애칭) 변수 반환하며 화면 종료
                                             child: Text(
@@ -836,7 +816,9 @@ class _RegisterPageState extends State<RegisterPage> {
           skillchecked_newText,
           flowerpotindex_newText,
           flowerspaceindex_newText,
-          DateTime.now()); //220423 수정
+          DateTime.now(),
+          _selectedDate1!,
+          _selectedDate2!); //220423 수정
       // createTextController_plantname.text = "";
       // createTextController_nickname.text = "";
       // createTextController_skillchecked.text = "";
