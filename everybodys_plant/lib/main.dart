@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-        duration: 6000, //머무는 시간
+        duration: 4000, //머무는 시간
         splash: Image.asset(
           'assets/splashtest.png',
           fit: BoxFit.cover,

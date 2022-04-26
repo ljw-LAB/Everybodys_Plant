@@ -32,25 +32,24 @@ class EmailAuthService extends ChangeNotifier {
         email: email,
         password: password,
       );
-
-//      if (result != null) {
-//        await FirebaseAuth.instance.currentUser?.sendEmailVerification();
-//       await FirebaseAuth.instance.authStateChanges().listen((fu) {
-//          if (fu?.emailVerified == true) {
-//            if (result.user?.emailVerified == true) {
-//              // 인증 메일 발송
-//              // 새로운 계정 생성이 성공하였으므로 기존 계정이 있을 경우 로그아웃 시킴
-//              //notifyListeners(); // 로그인 상태 변경 알림
-//              //signOut();
-//              onSuccess('이메일 인증 성공');
-//            } else {
-//              onError('이메일 인증 실패');
-//            }
-//          }
-//        });
-//      } else {
-//        onError('이미 가입한 메일입니다');
-//      }
+      if (result != null) {
+        await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+        await FirebaseAuth.instance.authStateChanges().listen((fu) {
+          if (fu?.emailVerified == true) {
+            if (result.user?.emailVerified == true) {
+              // 인증 메일 발송
+              // 새로운 계정 생성이 성공하였으므로 기존 계정이 있을 경우 로그아웃 시킴
+              //notifyListeners(); // 로그인 상태 변경 알림
+              //signOut();
+              onSuccess('이메일 인증 성공');
+            } else {
+              onError('이메일 인증 실패');
+            }
+          }
+        });
+      } else {
+        onError('이미 가입한 메일입니다');
+      }
       //  성공 함수 호출
       onSuccess();
     } on FirebaseAuthException catch (e) {
