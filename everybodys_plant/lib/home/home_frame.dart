@@ -103,35 +103,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  // TextButton(
-                  //   child: Text(
-                  //     "로그아웃",
-                  //     style: TextStyle(
-                  //       color: Colors.black,
-                  //     ),
-                  //   ),
-                  //   onPressed: () {
-                  //     print("sign out");
-                  //     // 로그인 페이지로 이동
-                  //     Navigator.pushReplacement(
-                  //       context,
-                  //       MaterialPageRoute(builder: (context) => LoginHome()),
-                  //     );
-                  //   },
-                  // ),
-                  // GestureDetector(
-                  //   onTap: () {},
-                  //   child: Container(
-                  //     width: 24,
-                  //     height: 24,
-                  //     decoration: BoxDecoration(
-                  //       image: DecorationImage(
-                  //         image: AssetImage('assets/secondlogo.png'),
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

@@ -1,10 +1,11 @@
 //로그인 홈화면
 import 'package:everybodys_plant/certification/email_auth_service.dart';
 import 'package:everybodys_plant/home/home_frame.dart';
-import 'package:everybodys_plant/login/ForgotPassword_page.dart';
+import 'package:everybodys_plant/login/ForgetPassword_page.dart';
 import 'package:everybodys_plant/login/setting_page.dart';
 import 'package:everybodys_plant/login/signup_page.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:everybodys_plant/schedule/scheduler_org.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -151,7 +152,13 @@ class _LoginHomeState extends State<LoginHome> {
                                   builder: (context) => SignupPage()));
                         },
                         style: TextButton.styleFrom(primary: plantPrimaryColor),
-                        child: Text("이메일로 가입"),
+                        child: Text(
+                          "이메일로 가입",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
                     ),
                   ],

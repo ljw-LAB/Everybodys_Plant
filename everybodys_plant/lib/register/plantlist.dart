@@ -45,7 +45,7 @@ class _PlantListState extends State<PlantList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Image.asset(
-                      'assets/스킨답서스.png',
+                      'assets/scindapsus.png',
                       fit: BoxFit.fitWidth,
                     ),
                     Row(
@@ -63,7 +63,7 @@ class _PlantListState extends State<PlantList> {
                         SizedBox(
                           width: 4,
                         ),
-                        Text('스킨답서스',
+                        Text('scindapsus',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                       ],
@@ -81,7 +81,7 @@ class _PlantListState extends State<PlantList> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => RegisterPage(
-                                        plantname: '스킨답서스',
+                                        plantname: 'scindapsus',
                                       )),
                             );
                           },
@@ -100,7 +100,7 @@ class _PlantListState extends State<PlantList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Image.asset(
-                      'assets/안시리움핑크.png',
+                      'assets/anthurium.png',
                       fit: BoxFit.fitWidth,
                     ),
                     Row(
@@ -118,7 +118,7 @@ class _PlantListState extends State<PlantList> {
                         SizedBox(
                           width: 4,
                         ),
-                        Text('안시리움핑크',
+                        Text('anthurium',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                       ],
@@ -136,7 +136,7 @@ class _PlantListState extends State<PlantList> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      RegisterPage(plantname: '안시리움핑크'),
+                                      RegisterPage(plantname: 'anthurium'),
                                 ));
                           },
                         ),
@@ -154,7 +154,7 @@ class _PlantListState extends State<PlantList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Image.asset(
-                      'assets/이레카야자.png',
+                      'assets/arecapalm.png',
                       fit: BoxFit.fitWidth,
                     ),
                     Row(
@@ -172,7 +172,7 @@ class _PlantListState extends State<PlantList> {
                         SizedBox(
                           width: 4,
                         ),
-                        Text('이레카자야',
+                        Text('arecapalm',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                       ],
@@ -190,7 +190,7 @@ class _PlantListState extends State<PlantList> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => RegisterPage(
-                                          plantname: '이레카자야',
+                                          plantname: 'arecapalm',
                                         )));
                           },
                         ),
@@ -211,9 +211,9 @@ class _PlantListState extends State<PlantList> {
 // 검색기능구현 관련
 class MySearchDelegate extends SearchDelegate {
   List<String> searchResults = [
-    '스킨답서스',
-    '안시리움핑크',
-    '이레카야자',
+    'scindapsus',
+    'anthurium',
+    'arecapalm',
   ];
 
   @override

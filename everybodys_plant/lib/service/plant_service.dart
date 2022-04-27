@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:everybodys_plant/home/Bottomhome.dart';
 import 'package:everybodys_plant/main.dart';
 import 'package:everybodys_plant/register/plantlist.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +8,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Plant {
-  String? plantname; // 식물명
-  String? nickname; // 애칭
+  String plantname; // 식물명
+  String nickname; // 애칭
   DateTime createdAt; // 마지막 물준날
-  bool skillchecked; // 숙련자 Check여부
-  int flowerpotindex; // 화분 종류
-  int flowerspaceindex; // 공간 종류
+  String skillchecked; // 숙련자 Check여부
+  String flowerpotindex; // 화분 종류
+  String flowerspaceindex; // 공간 종류
 
   Plant(
       {required this.plantname, // 식물명
@@ -79,8 +80,8 @@ class PlantService extends ChangeNotifier {
   }
 
   /// Plant 작성
-  void create(String plantname, String nickname, bool skillchecked,
-      int flowerpotindex, int flowerspaceindex, DateTime selectedDate) {
+  void create(String plantname, String nickname, String skillchecked,
+      String flowerpotindex, String flowerspaceindex, DateTime selectedDate) {
     DateTime now = DateTime.now();
 
     // 선택된 날짜(selectedDate)에 현재 시간으로 추가
@@ -111,7 +112,7 @@ class PlantService extends ChangeNotifier {
 
   /// Plant 수정
   void update(DateTime createdAt, String plantname, String nickname,
-      bool skillchecked, int flowerpotindex, int flowerspaceindex) {
+      String skillchecked, String flowerpotindex, String flowerspaceindex) {
     // createdAt은 중복될 일이 없기 때문에 createdAt을 고유 식별자로 사용
     // createdAt이 일치하는 plant 조회
     Plant plant = PlantList.firstWhere((plant) => plant.createdAt == createdAt);

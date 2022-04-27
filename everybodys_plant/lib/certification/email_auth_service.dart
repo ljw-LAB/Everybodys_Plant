@@ -1,4 +1,3 @@
-import 'package:everybodys_plant/login/setting_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -127,8 +126,24 @@ class EmailAuthService extends ChangeNotifier {
     notifyListeners();
   }
 
-//비밀번호
+//비밀번호 재설정
   Future<void> resetPassword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
+
+// 비밀번호 변경
+//  void changePassword (String currentPassword, String newPassword) async {
+//final user = await FirebaseAuth.instance.currentUser;
+//final cred = EmailAuthProvider.credential(
+//    email: FirebaseAuth.instance.email, password: currentPassword);
+
+//user.reauthenticateWithCredential(cred).then((value) {
+//  user.updatePassword(newPassword).then((_) {
+//    //Success, do something
+//  }).catchError((error) {
+//    //Error, show something
+//  });
+//}).catchError((err) {
+
+//});}
 }

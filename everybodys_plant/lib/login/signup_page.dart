@@ -17,6 +17,8 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   bool isVisible = false;
   // 여러 텍스트필드 숨겼다가 보였다가 하기
+  final TextEditingController displaynameController = TextEditingController();
+
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController signupforPWController = TextEditingController();
@@ -59,9 +61,11 @@ class _SignupPageState extends State<SignupPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Flexible(
+                  Expanded(
                     child: TextFormField(
-                      controller: emailController,
+                      //  onSaved: (deger) => = deger!,
+                      textInputAction: TextInputAction.done,
+                      controller: displaynameController,
                       decoration: InputDecoration(
                         labelText: "닉네임",
                         hintText: "10자이내로 입력하세요.",
@@ -70,20 +74,23 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextButton(
-                      onPressed: () => setState(() => isVisible = !isVisible),
-                      style: TextButton.styleFrom(
-                        primary: Colors.black, // 텍스트 컬러
-                        shape: RoundedRectangleBorder(
-                          // 라운드형 보더
-                          borderRadius: BorderRadius.circular(10),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: TextButton(
+                        onPressed: () => setState(() => isVisible = !isVisible),
+                        style: TextButton.styleFrom(
+                          primary: Colors.black, // 텍스트 컬러
+                          shape: RoundedRectangleBorder(
+                            // 라운드형 보더
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor: plantPrimaryColor,
                         ),
-                        backgroundColor: plantPrimaryColor,
-                      ),
-                      child: Text(
-                        "중복체크",
-                        style: TextStyle(
-                          color: Colors.white,
+                        child: Text(
+                          "중복체크",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -97,15 +104,15 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   children: [
                     SizedBox(height: 50),
-                    _buildTextFormField2("이름을 입력해주세요", emailController),
+                    _buildTextFormField2("이메일을 입력해주세요", emailController),
                     SizedBox(height: 16),
                     _buildTextFormField2("비밀번호를 입력해주세요", signupforPWController),
                     SizedBox(height: 16),
-                    _buildTextFormField2(
-                        "비밀번호를 다시 입력해주세요", _cPasswordController),
-                    SizedBox(height: 16),
-                    _buildTextFormField2(
-                        "연락처를 입력해주세요", _ContactnumberController),
+                    //_buildTextFormField2(
+                    //    "비밀번호를 다시 입력해주세요", _cPasswordController),
+                    //SizedBox(height: 16),
+                    //_buildTextFormField2(
+                    //    "연락처를 입력해주세요", _ContactnumberController),
                   ],
                 ),
               ),
