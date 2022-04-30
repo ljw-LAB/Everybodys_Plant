@@ -110,6 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
     var image =
         await ImagePicker.platform.pickImage(source: ImageSource.camera);
     setState(() {
+      Navigator.pop(context);
       _image = image!;
     });
   }
@@ -119,6 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
     var image =
         await ImagePicker.platform.pickImage(source: ImageSource.gallery);
     setState(() {
+      Navigator.pop(context);
       _image = image!;
     });
   }
@@ -184,109 +186,113 @@ class _RegisterPageState extends State<RegisterPage> {
                           border: Border.all(color: Colors.grey, width: 1)),
                       height: 154,
                       width: 154,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          FloatingActionButton(
-                            onPressed: () {
-                              AlertDialog alertDialog = AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                title: Center(
-                                    child: Text(
-                                  '이미지 불러오기',
-                                  style: TextStyle(fontSize: 16),
-                                )),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            FloatingActionButton(
-                                              onPressed: getImageFromCam,
-                                              tooltip: 'Pick Image',
-                                              child: Icon(
-                                                Icons.add_a_photo,
-                                                color: Colors.grey,
+                      child: _image != null
+                          ? Image.file(File(_image!.path))
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    AlertDialog alertDialog = AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      title: Center(
+                                          child: Text(
+                                        '이미지 불러오기',
+                                        style: TextStyle(fontSize: 16),
+                                      )),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  FloatingActionButton(
+                                                    onPressed: getImageFromCam,
+                                                    tooltip: 'Pick Image',
+                                                    child: Icon(
+                                                      Icons.add_a_photo,
+                                                      color: Colors.grey,
+                                                    ),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 12,
+                                                  ),
+                                                  Text("카메라",
+                                                      style: TextStyle(
+                                                          fontSize: 12))
+                                                ],
                                               ),
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            SizedBox(
-                                              height: 12,
-                                            ),
-                                            Text("카메라",
-                                                style: TextStyle(fontSize: 12))
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: 32,
-                                        ),
-                                        Column(
-                                          children: [
-                                            FloatingActionButton(
-                                              onPressed: getImageFromGallery,
-                                              tooltip: 'Pick Image',
-                                              child: Icon(
-                                                Icons.wallpaper,
-                                                color: Colors.grey,
+                                              SizedBox(
+                                                width: 32,
                                               ),
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            SizedBox(
-                                              height: 12,
-                                            ),
-                                            Text('갤러리에서',
-                                                style: TextStyle(fontSize: 12))
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 24),
-                                    TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text('취소'))
-                                  ],
+                                              Column(
+                                                children: [
+                                                  FloatingActionButton(
+                                                    onPressed:
+                                                        getImageFromGallery,
+                                                    tooltip: 'Pick Image',
+                                                    child: Icon(
+                                                      Icons.wallpaper,
+                                                      color: Colors.grey,
+                                                    ),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 12,
+                                                  ),
+                                                  Text('갤러리에서',
+                                                      style: TextStyle(
+                                                          fontSize: 12))
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 24),
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('취소'))
+                                        ],
+                                      ),
+                                    );
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return alertDialog;
+                                        });
+                                  },
+                                  tooltip: 'Pick Image',
+                                  child: Icon(
+                                    Icons.add_a_photo,
+                                    color: Colors.grey,
+                                  ),
+                                  backgroundColor: Colors.white,
                                 ),
-                              );
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: true,
-                                  builder: (BuildContext context) {
-                                    return alertDialog;
-                                  });
-                            },
-                            tooltip: 'Pick Image',
-                            child: Icon(
-                              Icons.add_a_photo,
-                              color: Colors.grey,
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Text(
+                                  "반려식물의 사진을\n 선택해주세요.",
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 12),
+                                )
+                              ],
                             ),
-                            backgroundColor: Colors.white,
-                          ),
-                          SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            "반려식물의 사진을\n 선택해주세요.",
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          )
-                        ],
-                      ),
                     ),
                   ],
                 ),
                 SizedBox(
                   height: 32,
-                ),
-                Container(
-                  child: _image == null
-                      ? Text("no image")
-                      : Image.file(File(_image!.path)),
                 ),
                 Row(
                   children: [
