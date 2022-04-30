@@ -253,35 +253,104 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                             int i = plantList.length - index - 1;
                             Plant plant = plantList[i];
                             return ListTile(
-                              title: Container(
-                                child: Text(
-                                  plant.plantname +
-                                      "\n" +
-                                      plant.nickname +
-                                      "\n" +
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(plant.lastwaterAt) +
-                                      "\n" +
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(plant.lastpotchangedAt),
-                                  // plant.skillchecked,
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                width: double.infinity,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x14000000),
-                                      blurRadius: 10,
-                                      offset: Offset(0, 4),
+                              title: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        plantList.isEmpty
+                                            ? Row(children: [
+                                                SizedBox(
+                                                  width: 24,
+                                                ),
+                                                Text(
+                                                  "식물을 등록해주세요",
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.grey),
+                                                ),
+                                              ])
+                                            : Row(children: [
+                                                SizedBox(
+                                                  width: 24,
+                                                ),
+                                                Text(
+                                                  "마지막 물 준 날",
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.grey),
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 6),
+                                                  width: 1,
+                                                  height: 16,
+                                                  color: Colors.grey,
+                                                ),
+                                                Text(
+                                                  DateFormat("yy-mm-dd").format(
+                                                      plant.lastwaterAt),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.grey),
+                                                )
+                                              ]),
+                                        SizedBox(
+                                          height: 16,
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 24,
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.all(6),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 6),
+                                              child: Text('image',
+                                                  style: TextStyle(
+                                                      color: Colors.green,
+                                                      fontSize: 13)),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.green),
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                            ),
+                                            SizedBox(
+                                              width: 16,
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(plant.plantname,
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.grey)),
+                                                Text(plant.nickname,
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                TextButton(
+                                                  child: const Text('선택하기'),
+                                                  onPressed: () {
+                                                    print(plantService);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                  color: Colors.white,
+                                  ),
                                 ),
                               ),
 
@@ -357,72 +426,77 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                             // 역순으로 보여주기
                             int i = plantList.length - index - 1;
                             Plant plant = plantList[i];
-                            return ListTile(
-                              title: Container(
-                                child: Text(
-                                  plant.plantname +
-                                      "\n" +
-                                      plant.nickname +
-                                      "\n" +
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(plant.lastwaterAt) +
-                                      "\n" +
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(plant.lastpotchangedAt),
-                                  // plant.skillchecked,
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.black,
+
+                            return Visibility(
+                                visible:
+                                    plant.skillchecked == '비숙련자' ? false : true,
+                                child: ListTile(
+                                  title: Column(
+                                    children: [
+                                      Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.star, size: 50),
+                                            Container(
+                                              width: 48,
+                                              height: 48,
+                                              alignment: Alignment.topLeft,
+                                            )
+                                          ],
+                                        ),
+                                        width: double.infinity,
+                                        height: 120,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x14000000),
+                                              blurRadius: 10,
+                                              offset: Offset(0, 4),
+                                            ),
+                                          ],
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                width: double.infinity,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x14000000),
-                                      blurRadius: 10,
-                                      offset: Offset(0, 4),
-                                    ),
-                                  ],
-                                  color: Colors.white,
-                                ),
-                              ),
 
-                              /// text
-                              // title: Text(
-                              //   // widget.test_plantname!,
-                              //   plant.plantname +
-                              //       "\n" +
-                              //       plant.nickname +
-                              //       "\n" +
-                              //       plant.skillchecked,
-                              //   style: TextStyle(
-                              //     fontSize: 24,
-                              //     color: Colors.black,
-                              //   ),
-                              // ),
+                                  /// text
+                                  // title: Text(
+                                  //   // widget.test_plantname!,
+                                  //   plant.plantname +
+                                  //       "\n" +
+                                  //       plant.nickname +
+                                  //       "\n" +
+                                  //       plant.skillchecked,
+                                  //   style: TextStyle(
+                                  //     fontSize: 24,
+                                  //     color: Colors.black,
+                                  //   ),
+                                  // ),
 
-                              /// createdAt
-                              // trailing: Text(
-                              //   DateFormat('kk:mm').format(plant.createdAt),
-                              //   style: TextStyle(
-                              //     fontSize: 12,
-                              //     color: Colors.grey,
-                              //   ),
-                              // ),
+                                  /// createdAt
+                                  // trailing: Text(
+                                  //   DateFormat('kk:mm').format(plant.createdAt),
+                                  //   style: TextStyle(
+                                  //     fontSize: 12,
+                                  //     color: Colors.grey,
+                                  //   ),
+                                  // ),
 
-                              /// 클릭하여 update
-                              onTap: () {
-                                showUpdateDialog(plantService, plant);
-                              },
+                                  /// 클릭하여 update
+                                  onTap: () {
+                                    showUpdateDialog(plantService, plant);
+                                  },
 
-                              /// 꾹 누르면 delete
-                              onLongPress: () {
-                                showDeleteDialog(plantService, plant);
-                              },
-                            );
+                                  /// 꾹 누르면 delete
+                                  onLongPress: () {
+                                    showDeleteDialog(plantService, plant);
+                                  },
+                                ));
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             // item 사이에 Divider 추가
