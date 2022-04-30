@@ -240,12 +240,6 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.bold)),
-                                                TextButton(
-                                                  child: const Text('선택하기'),
-                                                  onPressed: () {
-                                                    print(plantService);
-                                                  },
-                                                ),
                                               ],
                                             ),
                                           ],
@@ -282,7 +276,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                       "분갈이 일정",
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                          color: primaryColorList[1],
+                          color: primaryColorList[2],
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
@@ -402,12 +396,6 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold)),
-                                                    TextButton(
-                                                      child: const Text('선택하기'),
-                                                      onPressed: () {
-                                                        print(plantService);
-                                                      },
-                                                    ),
                                                   ],
                                                 ),
                                               ],

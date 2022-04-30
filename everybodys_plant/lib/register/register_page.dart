@@ -179,16 +179,22 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.grey, width: 1)),
-                      height: 154,
-                      width: 154,
-                      child: _image != null
-                          ? Image.file(File(_image!.path))
-                          : Column(
+                    _image != null
+                        ? CircleAvatar(
+                            backgroundImage: Image.file(
+                              File(_image!.path),
+                            ).image,
+                            radius: 70,
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                border:
+                                    Border.all(color: Colors.grey, width: 1)),
+                            height: 154,
+                            width: 154,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -288,7 +294,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 )
                               ],
                             ),
-                    ),
+                          ),
                   ],
                 ),
                 SizedBox(
@@ -544,8 +550,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       SizedBox(width: 24),
                       Text("마지막 분갈이 날짜",
-                          style: TextStyle(
-                              fontSize: 20, color: Color(0xff6B7583))),
+                          style: TextStyle(color: Color(0xff6B7583))),
                     ],
                   ),
                 ),
