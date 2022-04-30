@@ -1,103 +1,29 @@
-import 'package:everybodys_plant/service/schedule_service.dart';
+// import 'package:everybodys_plant/service/schedule_service.dart';
+import 'package:everybodys_plant/home/home_done.dart';
+import 'package:everybodys_plant/register/plantlist.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 // import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-// class Scheduler_org_Page extends StatefulWidget {
-//   const Scheduler_org_Page({Key? key}) : super(key: key);
-
-//   @override
-//   State<Scheduler_org_Page> createState() => _Scheduler_org_PageState();
-// }
-
-// class _Scheduler_org_PageState extends State<Scheduler_org_Page> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: TableCalendar(
-//       firstDay: DateTime.utc(2010, 10, 16),
-//       lastDay: DateTime.utc(2030, 3, 14),
-//       focusedDay: DateTime.now(),
-//     ));
-//   }
-// }
-
-// class Schedule_org extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: Scheduler_org_Page(title: 'Everybodys Plants Schedule'),
-//     );
-//   }
-// }
-
-// class Scheduler_org_Page extends StatefulWidget {
-//   Scheduler_org_Page({Key? key, this.title}) : super(key: key);
-//   final String? title;
-//   @override
-//   _Scheduler_org_PageState createState() => _Scheduler_org_PageState();
-// }
-
-// class _Scheduler_org_PageState extends State<Scheduler_org_Page> {
-//   CalendarFormat _calendarFormat = CalendarFormat.month;
-//   DateTime _focusedDay = DateTime.now();
-//   DateTime? _selectedDay;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(widget.title!),
-//       ),
-//       body: TableCalendar(
-//         firstDay: DateTime.utc(2010, 10, 16),
-//         lastDay: DateTime.utc(2030, 3, 14),
-//         focusedDay: _focusedDay,
-//         calendarFormat: _calendarFormat,
-//         // selectedDayPredicate: (day) {
-//         //   // Use `selectedDayPredicate` to determine which day is currently selected.
-//         //   // If this returns true, then `day` will be marked as selected.
-
-//         //   // Using `isSameDay` is recommended to disregard
-//         //   // the time-part of compared DateTime objects.
-//         //   return isSameDay(_selectedDay, day);
-//         // },
-//         // onDaySelected: (selectedDay, focusedDay) {
-//         //   if (!isSameDay(_selectedDay, selectedDay)) {
-//         //     // Call `setState()` when updating the selected day
-//         //     setState(() {
-//         //       _selectedDay = selectedDay;
-//         //       _focusedDay = focusedDay;
-//         //     });
-//         //   }
-//         // },
-//         // onFormatChanged: (format) {
-//         //   if (_calendarFormat != format) {
-//         //     // Call `setState()` when updating calendar format
-//         //     setState(() {
-//         //       _calendarFormat = format;
-//         //     });
-//         //   }
-//         // },
-//         // onPageChanged: (focusedDay) {
-//         //   // No need to call `setState()` here
-//         //   _focusedDay = focusedDay;
-//         // },
-//       ),
-//     );
-//   }
-// }
+import 'package:everybodys_plant/login/plantlogin.dart';
+import 'package:everybodys_plant/service/plant_service.dart';
 
 // ignore: camel_case_types
 class Plant_schedule_Page extends StatefulWidget {
-  const Plant_schedule_Page({Key? key}) : super(key: key);
+  final PlantService? test_service;
+  // final String? test_plantname;
+  // final String? test_plant
+  // final String? test_nickname;
+  // final String? test_memo;
+
+  const Plant_schedule_Page(
+      // {Key? key, @required this.test_plantname, @required this.test_nickname, , @required this.test_nickname})
+      {Key? key,
+      @required this.test_service})
+      : super(key: key);
 
   @override
   State<Plant_schedule_Page> createState() => _Plant_schedule_PageState();
@@ -105,6 +31,10 @@ class Plant_schedule_Page extends StatefulWidget {
 
 // ignore: camel_case_types
 class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
+  int _selectedIndex = 1;
+  // 이동할 페이지
+  List _pages = [Plant_schedule_Page(), HomeDonePage()];
+
   // 달력 보여주는 형식
   CalendarFormat calendarFormat = CalendarFormat.month;
 
@@ -112,18 +42,56 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
   DateTime selectedDate = DateTime.now();
 
   // create text controller
-  TextEditingController createTextController = TextEditingController();
+  TextEditingController createTextController_plantname =
+      TextEditingController();
+  TextEditingController createTextController_nickname = TextEditingController();
+  TextEditingController createTextController_createdAt =
+      TextEditingController();
+  TextEditingController createTextController_skillchecked =
+      TextEditingController();
+  TextEditingController createTextController_flowerpotindex =
+      TextEditingController();
+  TextEditingController createTextController_flowerspaceindex =
+      TextEditingController();
 
   // update text controller
-  TextEditingController updateTextController = TextEditingController();
+  TextEditingController updateTextController_plantname =
+      TextEditingController();
+  TextEditingController updateTextController_nickname = TextEditingController();
+  TextEditingController updateTextController_createdAt =
+      TextEditingController();
+  TextEditingController updateTextController_skillchecked =
+      TextEditingController();
+  TextEditingController updateTextController_flowerpotindex =
+      TextEditingController();
+  TextEditingController updateTextController_flowerspaceindex =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    BottomNavigationBar bottomNavigationBar = BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: _selectedIndex,
+      backgroundColor: Colors.white,
+      // selectedItemColor: Colors.white,
+      // unselectedItemColor: Colors.white.withOpacity(.60),
+      // selectedFontSize: 14,
+      // unselectedFontSize: 14,
+      onTap: (value) {
+        setState(() {
+          _selectedIndex = value; //page
+        });
+      },
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.schedule), label: "스케쥴"),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "홈")
+      ],
+    );
+
     return Consumer<PlantService>(
       builder: (context, plantService, child) {
         List<Plant> plantList = plantService.getByDate(selectedDate);
         return Scaffold(
-          // 키보드가 올라올 때 화면 밀지 않도록 만들기(overflow 방지)
           resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Column(
@@ -162,13 +130,116 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                   },
                 ),
                 Divider(height: 1),
+                SizedBox(height: 24),
+                Row(
+                  children: [
+                    SizedBox(width: 24),
+                    Image.asset('assets/Water.png'),
+                    SizedBox(width: 8),
+                    Text(
+                      "물주기 일정",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: primaryColorList[1],
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          plantList.isEmpty
+                              ? Row(children: [
+                                  SizedBox(
+                                    width: 24,
+                                  ),
+                                  Text(
+                                    "식물을 등록해주세요",
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.grey),
+                                  ),
+                                ])
+                              : Row(children: [
+                                  SizedBox(
+                                    width: 24,
+                                  ),
+                                  Text(
+                                    "마지막 물 준 날",
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.grey),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 6),
+                                    width: 1,
+                                    height: 16,
+                                    color: Colors.grey,
+                                  ),
+                                  Text(
+                                    "12/31",
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.grey),
+                                  )
+                                ]),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 24,
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(6),
+                                padding: EdgeInsets.symmetric(horizontal: 6),
+                                child: Text('image',
+                                    style: TextStyle(
+                                        color: Colors.green, fontSize: 13)),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.green),
+                                    borderRadius: BorderRadius.circular(6)),
+                              ),
+                              SizedBox(
+                                width: 16,
+                              ),
+                              Column(
+                                children: [
+                                  Text('식물명',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey)),
+                                  Text('애칭',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold)),
+                                  TextButton(
+                                    child: const Text('선택하기'),
+                                    onPressed: () {
+                                      print(plantService);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
 
                 /// 선택한 날짜의 일기 목록
                 Expanded(
                   child: plantList.isEmpty
                       ? Center(
                           child: Text(
-                            "등록된 식물이 없습니다.\n 식물을 등록해주세요",
+                            "식물을 등록해주세요",
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 18,
@@ -180,34 +251,176 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                           itemBuilder: (context, index) {
                             // 역순으로 보여주기
                             int i = plantList.length - index - 1;
-                            Plant diary = plantList[i];
+                            Plant plant = plantList[i];
                             return ListTile(
-                              /// text
-                              title: Text(
-                                diary.text,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
+                              title: Container(
+                                child: Text(
+                                  plant.plantname +
+                                      "\n" +
+                                      plant.nickname +
+                                      "\n" +
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(plant.lastwaterAt) +
+                                      "\n" +
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(plant.lastpotchangedAt),
+                                  // plant.skillchecked,
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                width: double.infinity,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x14000000),
+                                      blurRadius: 10,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                  color: Colors.white,
                                 ),
                               ),
 
-                              /// createdAt
-                              trailing: Text(
-                                DateFormat('kk:mm').format(diary.createdAt),
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                              ),
+                              /// text
+                              // title: Text(
+                              //   // widget.test_plantname!,
+                              //   plant.plantname +
+                              //       "\n" +
+                              //       plant.nickname +
+                              //       "\n" +
+                              //       plant.skillchecked,
+                              //   // plant.plantname.toString(),
+                              //   // createPlant(plantService)
+                              //   // widget.test_plantname.toString(),
+                              //   style: TextStyle(
+                              //     fontSize: 24,
+                              //     color: Colors.black,
+                              //   ),
+                              // ),
+
+                              // /// createdAt
+                              // trailing: Text(
+                              //   DateFormat('kk:mm').format(plant.createdAt),
+                              //   style: TextStyle(
+                              //     fontSize: 12,
+                              //     color: Colors.grey,
+                              //   ),
+                              // ),
 
                               /// 클릭하여 update
                               onTap: () {
-                                showUpdateDialog(plantService, diary);
+                                showUpdateDialog(plantService, plant);
                               },
 
                               /// 꾹 누르면 delete
                               onLongPress: () {
-                                showDeleteDialog(plantService, diary);
+                                showDeleteDialog(plantService, plant);
+                              },
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            // item 사이에 Divider 추가
+                            return Divider(height: 1);
+                          },
+                        ),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "분갈이 일정",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 219, 161, 35),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                Expanded(
+                  child: plantList.isEmpty
+                      ? Center(
+                          child: Text(
+                            "식물을 등록해주세요",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 18,
+                            ),
+                          ),
+                        )
+                      : ListView.separated(
+                          itemCount: plantList.length,
+                          itemBuilder: (context, index) {
+                            // 역순으로 보여주기
+                            int i = plantList.length - index - 1;
+                            Plant plant = plantList[i];
+                            return ListTile(
+                              title: Container(
+                                child: Text(
+                                  plant.plantname +
+                                      "\n" +
+                                      plant.nickname +
+                                      "\n" +
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(plant.lastwaterAt) +
+                                      "\n" +
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(plant.lastpotchangedAt),
+                                  // plant.skillchecked,
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                width: double.infinity,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x14000000),
+                                      blurRadius: 10,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                              /// text
+                              // title: Text(
+                              //   // widget.test_plantname!,
+                              //   plant.plantname +
+                              //       "\n" +
+                              //       plant.nickname +
+                              //       "\n" +
+                              //       plant.skillchecked,
+                              //   style: TextStyle(
+                              //     fontSize: 24,
+                              //     color: Colors.black,
+                              //   ),
+                              // ),
+
+                              /// createdAt
+                              // trailing: Text(
+                              //   DateFormat('kk:mm').format(plant.createdAt),
+                              //   style: TextStyle(
+                              //     fontSize: 12,
+                              //     color: Colors.grey,
+                              //   ),
+                              // ),
+
+                              /// 클릭하여 update
+                              onTap: () {
+                                showUpdateDialog(plantService, plant);
+                              },
+
+                              /// 꾹 누르면 delete
+                              onLongPress: () {
+                                showDeleteDialog(plantService, plant);
                               },
                             );
                           },
@@ -236,25 +449,53 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
 
   /// 작성하기
   /// 엔터를 누르거나 작성 버튼을 누르는 경우 호출
-  void createDiary(PlantService plantService) {
-    // 앞뒤 공백 삭제
-    String newText = createTextController.text.trim();
-    if (newText.isNotEmpty) {
-      plantService.create(newText, selectedDate);
-      createTextController.text = "";
-    }
-  }
+  // void createPlant(PlantService plantService) {
+  //   // 앞뒤 공백 삭제
+  //   String plantname_newText = createTextController_plantname.text.trim();
+  //   String nickname_newText = createTextController_nickname.text.trim();
+  //   String skillchecked_newText = createTextController_skillchecked.text.trim();
+  //   String flowerpotindex_newText =
+  //       createTextController_flowerpotindex.text.trim();
+  //   String flowerspaceindex_newText =
+  //       createTextController_flowerspaceindex.text.trim();
+
+  //   if (plantname_newText.isNotEmpty) {
+  //     //plantService.create(newText,);
+  //     plantService.create(
+  //         plantname_newText,
+  //         nickname_newText,
+  //         skillchecked_newText,
+  //         flowerpotindex_newText,
+  //         flowerspaceindex_newText,
+  //         selectedDate); //220423 수정
+  //     createTextController_plantname.text = "";
+  //     createTextController_nickname.text = "";
+  //     createTextController_skillchecked.text = "";
+  //     createTextController_flowerpotindex.text = "";
+  //     createTextController_flowerspaceindex.text = "";
+  //   }
+  // }
 
   /// 수정하기
   /// 엔터를 누르거나 수정 버튼을 누르는 경우 호출
-  void updateDiary(PlantService plantService, Plant diary) {
+  void updatePlant(PlantService plantService, Plant plant) {
     // 앞뒤 공백 삭제
-    String updatedText = updateTextController.text.trim();
-    if (updatedText.isNotEmpty) {
+    String plantname_newText = updateTextController_plantname.text.trim();
+    String nickname_newText = updateTextController_nickname.text.trim();
+    String skillchecked_newText = updateTextController_skillchecked.text.trim();
+    String flowerpotindex_newText =
+        updateTextController_flowerpotindex.text.trim();
+    String flowerspaceindex_newText =
+        updateTextController_flowerspaceindex.text.trim();
+
+    if (plantname_newText.isNotEmpty) {
       plantService.update(
-        diary.createdAt,
-        updatedText,
-      );
+          plant.createdAt,
+          plantname_newText,
+          nickname_newText,
+          skillchecked_newText,
+          flowerpotindex_newText,
+          flowerspaceindex_newText); //220423 수정
     }
   }
 
@@ -265,23 +506,74 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
       builder: (context) {
         return AlertDialog(
           title: Text("식물 등록"),
-          content: TextField(
-            controller: createTextController,
-            autofocus: true,
-            // 커서 색상
-            cursorColor: Colors.indigo,
-            decoration: InputDecoration(
-              hintText: "식물을 등록해주세요.",
-              // 포커스 되었을 때 밑줄 색상
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.indigo),
+          content: Column(
+            children: [
+              TextField(
+                controller: createTextController_plantname,
+                autofocus: true,
+                // 커서 색상
+                cursorColor: Colors.indigo,
+                decoration: InputDecoration(
+                  hintText: "식물을 등록해주세요.",
+                  // 포커스 되었을 때 밑줄 색상
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.indigo),
+                  ),
+                ),
               ),
-            ),
-            onSubmitted: (_) {
-              // 엔터 누를 때 작성하기
-              createDiary(plantService);
-              Navigator.pop(context);
-            },
+              TextField(
+                controller: createTextController_nickname,
+                autofocus: true,
+                // 커서 색상
+                cursorColor: Colors.indigo,
+                decoration: InputDecoration(
+                  hintText: "닉네임을 등록해주세요.",
+                  // 포커스 되었을 때 밑줄 색상
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.indigo),
+                  ),
+                ),
+              ),
+              TextField(
+                controller: createTextController_skillchecked,
+                autofocus: true,
+                // 커서 색상
+                cursorColor: Colors.indigo,
+                decoration: InputDecoration(
+                  hintText: "숙련자를 등록해주세요.",
+                  // 포커스 되었을 때 밑줄 색상
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.indigo),
+                  ),
+                ),
+              ),
+              TextField(
+                controller: createTextController_flowerpotindex,
+                autofocus: true,
+                // 커서 색상
+                cursorColor: Colors.indigo,
+                decoration: InputDecoration(
+                  hintText: "식물화분 등록해주세요.",
+                  // 포커스 되었을 때 밑줄 색상
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.indigo),
+                  ),
+                ),
+              ),
+              TextField(
+                controller: createTextController_flowerspaceindex,
+                autofocus: true,
+                // 커서 색상
+                cursorColor: Colors.indigo,
+                decoration: InputDecoration(
+                  hintText: "식물장소 등록해주세요.",
+                  // 포커스 되었을 때 밑줄 색상
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.indigo),
+                  ),
+                ),
+              ),
+            ],
           ),
           actions: [
             /// 취소 버튼
@@ -296,7 +588,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
             /// 작성 버튼
             TextButton(
               onPressed: () {
-                createDiary(plantService);
+                // createPlant(plantService);
                 Navigator.pop(context);
               },
               child: Text(
@@ -311,30 +603,30 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
   }
 
   /// 수정 다이얼로그 보여주기
-  void showUpdateDialog(PlantService plantService, Plant diary) {
+  void showUpdateDialog(PlantService plantService, Plant plant) {
     showDialog(
       context: context,
       builder: (context) {
-        updateTextController.text = diary.text;
+        updateTextController_plantname.text = plant.plantname;
         return AlertDialog(
-          title: Text("일기 수정"),
+          title: Text("식물 수정"),
           content: TextField(
             autofocus: true,
-            controller: updateTextController,
+            controller: updateTextController_plantname,
             // 커서 색상
             cursorColor: Colors.indigo,
             decoration: InputDecoration(
-              hintText: "한 줄 일기를 작성해 주세요.",
+              hintText: "식물이름을 수정해 주세요.",
               // 포커스 되었을 때 밑줄 색상
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.indigo),
               ),
             ),
-            onSubmitted: (v) {
-              // 엔터 누를 때 수정하기
-              updateDiary(plantService, diary);
-              Navigator.pop(context);
-            },
+            // onSubmitted: (v) {
+            //   // 엔터 누를 때 수정하기
+            //   updatePlant(plantService, plant);
+            //   Navigator.pop(context);
+            // },
           ),
           actions: [
             /// 취소 버튼
@@ -360,7 +652,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
               ),
               onPressed: () {
                 // 수정하기
-                updateDiary(plantService, diary);
+                updatePlant(plantService, plant);
                 Navigator.pop(context);
               },
             ),
@@ -371,14 +663,14 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
   }
 
   /// 삭제 다이얼로그 보여주기
-  void showDeleteDialog(PlantService plantService, Plant diary) {
+  void showDeleteDialog(PlantService plantService, Plant plant) {
     showDialog(
       context: context,
       builder: (context) {
-        updateTextController.text = diary.text;
+        updateTextController_plantname.text = plant.plantname.toString();
         return AlertDialog(
-          title: Text("일기 삭제"),
-          content: Text('"${diary.text}"를 삭제하시겠습니까?'),
+          title: Text("식물 정보 삭제"),
+          content: Text('"${plant.plantname.toString()}"를 삭제하시겠습니까?'),
           actions: [
             TextButton(
               child: Text(
@@ -401,7 +693,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                 ),
               ),
               onPressed: () {
-                plantService.delete(diary.createdAt);
+                plantService.delete(plant.createdAt);
                 Navigator.pop(context);
               },
             ),

@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   // 이동할 페이지
-  List _pages = [Plant_schedule_Page(), BottomHomePage(), PlantList()];
+  List _pages = [Plant_schedule_Page(), PlantList()];
 
   @override
   Widget build(BuildContext context) {

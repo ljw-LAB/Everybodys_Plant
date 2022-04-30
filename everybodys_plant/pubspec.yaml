@@ -45,12 +45,22 @@ dependencies:
   # geolocator: ^6.1.13
   # http: ^0.12.2
 
+
   image_picker: ^0.8.4+11
   video_player: ^2.3.0
   syncfusion_flutter_datepicker: ^20.1.47
   intl: ^0.17.0
   camera: ^0.9.4+19
 
+  firebase_core: ^1.10.6
+  firebase_auth: ^3.3.4
+  cloud_firestore: ^3.1.4
+  logger: ^1.1.0
+  firebase_image: 1.1.1
+  url_launcher: ^6.0.20
+  firebase_messaging: ^11.2.14
+  get: ^4.6.1
+  animated_splash_screen: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +80,7 @@ dev_dependencies:
 flutter:
   assets:     # 새로 추가한 부분
     - assets/ # assets 폴더의 모든 이미지를 불러옴
+    # assets 폴더의 모든 이미지를 불러옴
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
