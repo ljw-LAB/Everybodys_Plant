@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:everybodys_plant/home/home_done.dart';
 import 'package:everybodys_plant/register/renderTextFormField.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -54,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String _selectedValue = '1';
   String? error;
   DateTime? _selectedDate1; //마지막 물준날 날짜
-  DateTime? _selectedDate2; //마지막 분갈이 날짜
+  DateTime _selectedDate2 = DateTime.now(); //마지막 분갈이 날짜
   var _isChecked2 = false; //숙련자 여부 체크 변수
   bool isVisible = false;
   String test_date = "20220422"; //마지막 물준날 날짜
@@ -70,6 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
         .then((pickedDate) {
       // Check if no date is selected
       if (pickedDate == null) {
+        _selectedDate1 = DateTime.now();
         return;
       }
       setState(() {
@@ -90,6 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
         .then((pickedDate) {
       // Check if no date is selected
       if (pickedDate == null) {
+        _selectedDate2 = DateTime.now();
         return;
       }
       setState(() {
@@ -599,7 +602,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ? _selectedDate2
                                             .toString()
                                             .substring(0, 11)
-                                        : '선택하지 않음',
+                                        : DateFormat('yyyy-MM-dd')
+                                            .format(DateTime.now())
+                                            .toString(),
                                     style: const TextStyle(
                                         fontSize: 16, color: Color(0xff6B7583)),
                                   ),
