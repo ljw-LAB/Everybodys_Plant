@@ -13,15 +13,8 @@ import 'package:everybodys_plant/service/plant_service.dart';
 // ignore: camel_case_types
 class Plant_schedule_Page extends StatefulWidget {
   final PlantService? test_service;
-  // final String? test_plantname;
-  // final String? test_plant
-  // final String? test_nickname;
-  // final String? test_memo;
 
-  const Plant_schedule_Page(
-      // {Key? key, @required this.test_plantname, @required this.test_nickname, , @required this.test_nickname})
-      {Key? key,
-      @required this.test_service})
+  const Plant_schedule_Page({Key? key, @required this.test_service})
       : super(key: key);
 
   @override
@@ -72,10 +65,6 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
       type: BottomNavigationBarType.fixed,
       currentIndex: _selectedIndex,
       backgroundColor: Colors.white,
-      // selectedItemColor: Colors.white,
-      // unselectedItemColor: Colors.white.withOpacity(.60),
-      // selectedFontSize: 14,
-      // unselectedFontSize: 14,
       onTap: (value) {
         setState(() {
           _selectedIndex = value; //page
@@ -129,16 +118,20 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                   },
                 ),
                 Divider(height: 1),
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "물갈이 일정",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: Colors.lightBlue,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
+                Row(
+                  children: [
+                    SizedBox(width: 24),
+                    Image.asset('assets/Water.png'),
+                    SizedBox(width: 8),
+                    Text(
+                      "물주기 일정",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: primaryColorList[1],
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
 
                 /// 선택한 날짜의 일기 목록
@@ -161,7 +154,8 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                             Plant plant = plantList[i];
                             return ListTile(
                               title: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(0),
+                                // padding: const EdgeInsets.all(8.0),
                                 child: Card(
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -200,8 +194,9 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                   color: Colors.grey,
                                                 ),
                                                 Text(
-                                                  DateFormat("yy-mm-dd").format(
-                                                      plant.lastwaterAt),
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .format(
+                                                          plant.lastwaterAt),
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: Colors.grey),
@@ -261,32 +256,6 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                 ),
                               ),
 
-                              /// text
-                              // title: Text(
-                              //   // widget.test_plantname!,
-                              //   plant.plantname +
-                              //       "\n" +
-                              //       plant.nickname +
-                              //       "\n" +
-                              //       plant.skillchecked,
-                              //   // plant.plantname.toString(),
-                              //   // createPlant(plantService)
-                              //   // widget.test_plantname.toString(),
-                              //   style: TextStyle(
-                              //     fontSize: 24,
-                              //     color: Colors.black,
-                              //   ),
-                              // ),
-
-                              // /// createdAt
-                              // trailing: Text(
-                              //   DateFormat('kk:mm').format(plant.createdAt),
-                              //   style: TextStyle(
-                              //     fontSize: 12,
-                              //     color: Colors.grey,
-                              //   ),
-                              // ),
-
                               /// 클릭하여 update
                               onTap: () {
                                 showUpdateDialog(plantService, plant);
@@ -304,16 +273,20 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                           },
                         ),
                 ),
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "분갈이 일정",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 219, 161, 35),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
+                Row(
+                  children: [
+                    SizedBox(width: 24),
+                    Image.asset('assets/shovel.png'),
+                    SizedBox(width: 8),
+                    Text(
+                      "분갈이 일정",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: primaryColorList[1],
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
 
                 Expanded(
@@ -338,61 +311,112 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                 visible:
                                     plant.skillchecked == '비숙련자' ? false : true,
                                 child: ListTile(
-                                  title: Column(
-                                    children: [
-                                      Container(
+                                  title: Padding(
+                                    padding: EdgeInsets.all(0),
+                                    // padding: const EdgeInsets.all(8.0),
+                                    child: Card(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 16.0),
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Icon(Icons.star, size: 50),
-                                            Container(
-                                              width: 48,
-                                              height: 48,
-                                              alignment: Alignment.topLeft,
-                                            )
-                                          ],
-                                        ),
-                                        width: double.infinity,
-                                        height: 120,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0x14000000),
-                                              blurRadius: 10,
-                                              offset: Offset(0, 4),
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            plantList.isEmpty
+                                                ? Row(children: [
+                                                    SizedBox(
+                                                      width: 24,
+                                                    ),
+                                                    Text(
+                                                      "식물을 등록해주세요",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.grey),
+                                                    ),
+                                                  ])
+                                                : Row(children: [
+                                                    SizedBox(
+                                                      width: 24,
+                                                    ),
+                                                    Text(
+                                                      "마지막 분갈이 날",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.grey),
+                                                    ),
+                                                    Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 6),
+                                                      width: 1,
+                                                      height: 16,
+                                                      color: Colors.grey,
+                                                    ),
+                                                    Text(
+                                                      DateFormat('yyyy-MM-dd')
+                                                          .format(plant
+                                                              .lastwaterAt),
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.grey),
+                                                    )
+                                                  ]),
+                                            SizedBox(
+                                              height: 16,
+                                            ),
+                                            Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 24,
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.all(6),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 6),
+                                                  child: Text('image',
+                                                      style: TextStyle(
+                                                          color: Colors.green,
+                                                          fontSize: 13)),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: Colors.green),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6)),
+                                                ),
+                                                SizedBox(
+                                                  width: 16,
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Text(plant.plantname,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.grey)),
+                                                    Text(plant.nickname,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                    TextButton(
+                                                      child: const Text('선택하기'),
+                                                      onPressed: () {
+                                                        print(plantService);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ],
-                                          color: Colors.white,
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-
-                                  /// text
-                                  // title: Text(
-                                  //   // widget.test_plantname!,
-                                  //   plant.plantname +
-                                  //       "\n" +
-                                  //       plant.nickname +
-                                  //       "\n" +
-                                  //       plant.skillchecked,
-                                  //   style: TextStyle(
-                                  //     fontSize: 24,
-                                  //     color: Colors.black,
-                                  //   ),
-                                  // ),
-
-                                  /// createdAt
-                                  // trailing: Text(
-                                  //   DateFormat('kk:mm').format(plant.createdAt),
-                                  //   style: TextStyle(
-                                  //     fontSize: 12,
-                                  //     color: Colors.grey,
-                                  //   ),
-                                  // ),
 
                                   /// 클릭하여 update
                                   onTap: () {
@@ -427,35 +451,6 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
       },
     );
   }
-
-  /// 작성하기
-  /// 엔터를 누르거나 작성 버튼을 누르는 경우 호출
-  // void createPlant(PlantService plantService) {
-  //   // 앞뒤 공백 삭제
-  //   String plantname_newText = createTextController_plantname.text.trim();
-  //   String nickname_newText = createTextController_nickname.text.trim();
-  //   String skillchecked_newText = createTextController_skillchecked.text.trim();
-  //   String flowerpotindex_newText =
-  //       createTextController_flowerpotindex.text.trim();
-  //   String flowerspaceindex_newText =
-  //       createTextController_flowerspaceindex.text.trim();
-
-  //   if (plantname_newText.isNotEmpty) {
-  //     //plantService.create(newText,);
-  //     plantService.create(
-  //         plantname_newText,
-  //         nickname_newText,
-  //         skillchecked_newText,
-  //         flowerpotindex_newText,
-  //         flowerspaceindex_newText,
-  //         selectedDate); //220423 수정
-  //     createTextController_plantname.text = "";
-  //     createTextController_nickname.text = "";
-  //     createTextController_skillchecked.text = "";
-  //     createTextController_flowerpotindex.text = "";
-  //     createTextController_flowerspaceindex.text = "";
-  //   }
-  // }
 
   /// 수정하기
   /// 엔터를 누르거나 수정 버튼을 누르는 경우 호출
