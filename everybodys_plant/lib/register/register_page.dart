@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:everybodys_plant/schedule/scheduler.dart';
 import 'package:everybodys_plant/schedule/scheduler_org.dart';
 import 'package:everybodys_plant/service/plant_service.dart';
@@ -59,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool isVisible = false;
   String test_date = "20220422"; //마지막 물준날 날짜
   Plant? test_plant;
+
   // 마지막 물준날 날짜 선택 기능
   void _presentDatePicker1() {
     // showDatePicker is a pre-made funtion of Flutter
@@ -118,41 +121,6 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() {
       _image = image!;
     });
-  }
-
-  takeImage(mContext) {
-    return showDialog(
-        context: mContext,
-        builder: (context) {
-          return SimpleDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            title: Text(
-              'New Post',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            children: [
-              SimpleDialogOption(
-                child: Text('Capture Image with Camera',
-                    style: TextStyle(color: Colors.black)),
-                onPressed: getImageFromCam,
-              ),
-              SimpleDialogOption(
-                child: Text('Select Image from Gallery',
-                    style: TextStyle(color: Colors.black)),
-                onPressed: getImageFromGallery,
-              ),
-              SimpleDialogOption(
-                child: Text('Cancel', style: TextStyle(color: Colors.grey)),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          );
-        });
   }
 
   final formKey = GlobalKey<FormState>(); // Form - TextFormField 위젯 사용을 위한 변수
@@ -249,6 +217,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                               ),
                                               backgroundColor: Colors.white,
                                             ),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
                                             Text("카메라",
                                                 style: TextStyle(fontSize: 12))
                                           ],
@@ -266,6 +237,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 color: Colors.grey,
                                               ),
                                               backgroundColor: Colors.white,
+                                            ),
+                                            SizedBox(
+                                              height: 12,
                                             ),
                                             Text('갤러리에서',
                                                 style: TextStyle(fontSize: 12))
@@ -308,6 +282,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(
                   height: 32,
+                ),
+                Container(
+                  child: _image == null
+                      ? Text("no image")
+                      : Image.file(File(_image!.path)),
                 ),
                 Row(
                   children: [
