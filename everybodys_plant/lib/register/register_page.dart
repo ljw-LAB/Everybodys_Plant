@@ -1,17 +1,18 @@
-import 'package:everybodys_plant/schedule/scheduler.dart';
-import 'package:everybodys_plant/schedule/scheduler_org.dart';
-import 'package:everybodys_plant/service/plant_service.dart';
+import 'dart:io';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'package:everybodys_plant/schedule/scheduler.dart';
+import 'package:everybodys_plant/schedule/scheduler_org.dart';
+import 'package:everybodys_plant/service/plant_service.dart';
 import 'package:everybodys_plant/home/home_done.dart';
 import 'package:everybodys_plant/register/renderTextFormField.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
-  final String? plantname; // 식물 이름 가져올 변수
+  String? plantname = ""; // 식물 이름 가져올 변수
   final PlantService? test_plantservice;
 
   RegisterPage(
@@ -53,8 +54,8 @@ class _RegisterPageState extends State<RegisterPage> {
   String spaceitems_value = '미지정';
   String potitems_value = '미지정';
   String _selectedValue = '1';
-  String? error;
-  DateTime? _selectedDate1; //마지막 물준날 날짜
+  String? error = "";
+  DateTime _selectedDate1 = DateTime.now(); //마지막 물준날 날짜
   DateTime _selectedDate2 = DateTime.now(); //마지막 분갈이 날짜
   var _isChecked2 = false; //숙련자 여부 체크 변수
   bool isVisible = false;
@@ -110,6 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
     var image =
         await ImagePicker.platform.pickImage(source: ImageSource.camera);
     setState(() {
+      Navigator.pop(context);
       _image = image!;
     });
   }
@@ -119,44 +121,45 @@ class _RegisterPageState extends State<RegisterPage> {
     var image =
         await ImagePicker.platform.pickImage(source: ImageSource.gallery);
     setState(() {
+      Navigator.pop(context);
       _image = image!;
     });
   }
 
-  takeImage(mContext) {
-    return showDialog(
-        context: mContext,
-        builder: (context) {
-          return SimpleDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            title: Text(
-              'New Post',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            children: [
-              SimpleDialogOption(
-                child: Text('Capture Image with Camera',
-                    style: TextStyle(color: Colors.black)),
-                onPressed: getImageFromCam,
-              ),
-              SimpleDialogOption(
-                child: Text('Select Image from Gallery',
-                    style: TextStyle(color: Colors.black)),
-                onPressed: getImageFromGallery,
-              ),
-              SimpleDialogOption(
-                child: Text('Cancel', style: TextStyle(color: Colors.grey)),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          );
-        });
-  }
+  // takeImage(mContext) {
+  //   return showDialog(
+  //       context: mContext,
+  //       builder: (context) {
+  //         return SimpleDialog(
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(8.0),
+  //           ),
+  //           title: Text(
+  //             'New Post',
+  //             style: TextStyle(
+  //               color: Colors.black,
+  //               fontWeight: FontWeight.bold,
+  //             ),
+  //           ),
+  //           children: [
+  //             SimpleDialogOption(
+  //               child: Text('Capture Image with Camera',
+  //                   style: TextStyle(color: Colors.black)),
+  //               onPressed: getImageFromCam,
+  //             ),
+  //             SimpleDialogOption(
+  //               child: Text('Select Image from Gallery',
+  //                   style: TextStyle(color: Colors.black)),
+  //               onPressed: getImageFromGallery,
+  //             ),
+  //             SimpleDialogOption(
+  //               child: Text('Cancel', style: TextStyle(color: Colors.grey)),
+  //               onPressed: () => Navigator.pop(context),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
   final formKey = GlobalKey<FormState>(); // Form - TextFormField 위젯 사용을 위한 변수
 
@@ -212,101 +215,122 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.grey, width: 1)),
-                      height: 154,
-                      width: 154,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          FloatingActionButton(
-                            onPressed: () {
-                              AlertDialog alertDialog = AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                title: Center(
-                                    child: Text(
-                                  '이미지 불러오기',
-                                  style: TextStyle(fontSize: 16),
-                                )),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            FloatingActionButton(
-                                              onPressed: getImageFromCam,
-                                              tooltip: 'Pick Image',
-                                              child: Icon(
-                                                Icons.add_a_photo,
-                                                color: Colors.grey,
-                                              ),
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            Text("카메라",
-                                                style: TextStyle(fontSize: 12))
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: 32,
-                                        ),
-                                        Column(
-                                          children: [
-                                            FloatingActionButton(
-                                              onPressed: getImageFromGallery,
-                                              tooltip: 'Pick Image',
-                                              child: Icon(
-                                                Icons.wallpaper,
-                                                color: Colors.grey,
-                                              ),
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            Text('갤러리에서',
-                                                style: TextStyle(fontSize: 12))
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 24),
-                                    TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text('취소'))
-                                  ],
-                                ),
-                              );
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: true,
-                                  builder: (BuildContext context) {
-                                    return alertDialog;
-                                  });
-                            },
-                            tooltip: 'Pick Image',
-                            child: Icon(
-                              Icons.add_a_photo,
-                              color: Colors.grey,
-                            ),
-                            backgroundColor: Colors.white,
-                          ),
-                          SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            "반려식물의 사진을\n 선택해주세요.",
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
+                    _image != null
+                        ? CircleAvatar(
+                            backgroundImage: Image.file(
+                              File(_image!.path),
+                            ).image,
+                            radius: 70,
                           )
-                        ],
-                      ),
-                    ),
+                        : Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                border:
+                                    Border.all(color: Colors.grey, width: 1)),
+                            height: 154,
+                            width: 154,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    AlertDialog alertDialog = AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      title: Center(
+                                          child: Text(
+                                        '이미지 불러오기',
+                                        style: TextStyle(fontSize: 16),
+                                      )),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  FloatingActionButton(
+                                                    onPressed: getImageFromCam,
+                                                    tooltip: 'Pick Image',
+                                                    child: Icon(
+                                                      Icons.add_a_photo,
+                                                      color: Colors.grey,
+                                                    ),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 12,
+                                                  ),
+                                                  Text("카메라",
+                                                      style: TextStyle(
+                                                          fontSize: 12))
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                width: 32,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  FloatingActionButton(
+                                                    onPressed:
+                                                        getImageFromGallery,
+                                                    tooltip: 'Pick Image',
+                                                    child: Icon(
+                                                      Icons.wallpaper,
+                                                      color: Colors.grey,
+                                                    ),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 12,
+                                                  ),
+                                                  Text('갤러리에서',
+                                                      style: TextStyle(
+                                                          fontSize: 12))
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 24),
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('취소'))
+                                        ],
+                                      ),
+                                    );
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return alertDialog;
+                                        });
+                                  },
+                                  tooltip: 'Pick Image',
+                                  child: Icon(
+                                    Icons.add_a_photo,
+                                    color: Colors.grey,
+                                  ),
+                                  backgroundColor: Colors.white,
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Text(
+                                  "반려식물의 사진을\n 선택해주세요.",
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 12),
+                                )
+                              ],
+                            ),
+                          ),
                   ],
                 ),
                 SizedBox(
@@ -751,8 +775,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         Plant_schedule_Page(
-                                                            test_service:
-                                                                plantService)),
+                                                          test_service:
+                                                              plantService,
+                                                        )),
                                               );
                                             }, // nickname(애칭) 변수 반환하며 화면 종료
                                             child: Text(
@@ -812,6 +837,7 @@ class _RegisterPageState extends State<RegisterPage> {
     String skillchecked_newText = _isChecked2 ? "숙련자" : "비숙련자";
     String flowerpotindex_newText = potitems[0];
     String flowerspaceindex_newText = spaceitems[0];
+    String plant_image_path = _image!.path;
 
     if (plantname_newText!.isNotEmpty) {
       //plantService.create(newText,);
@@ -822,8 +848,9 @@ class _RegisterPageState extends State<RegisterPage> {
           flowerpotindex_newText,
           flowerspaceindex_newText,
           DateTime.now(),
-          _selectedDate1!,
-          _selectedDate2!); //220423 수정
+          _selectedDate1,
+          _selectedDate2,
+          plant_image_path); //220423 수정
       // createTextController_plantname.text = "";
       // createTextController_nickname.text = "";
       // createTextController_skillchecked.text = "";

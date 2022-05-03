@@ -152,7 +152,13 @@ class _LoginHomeState extends State<LoginHome> {
                                   builder: (context) => SignupPage()));
                         },
                         style: TextButton.styleFrom(primary: plantPrimaryColor),
-                        child: Text("이메일로 가입"),
+                        child: Text(
+                          "이메일로 가입",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
                     ),
                   ],

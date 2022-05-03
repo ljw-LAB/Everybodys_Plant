@@ -1,7 +1,10 @@
 // import 'package:everybodys_plant/service/schedule_service.dart';
+import 'dart:io';
+
 import 'package:everybodys_plant/home/home_done.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 // import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -13,8 +16,10 @@ import 'package:everybodys_plant/service/plant_service.dart';
 // ignore: camel_case_types
 class Plant_schedule_Page extends StatefulWidget {
   final PlantService? test_service;
+  final String? test_image;
 
-  const Plant_schedule_Page({Key? key, @required this.test_service})
+  const Plant_schedule_Page(
+      {Key? key, @required this.test_service, @required this.test_image})
       : super(key: key);
 
   @override
@@ -29,7 +34,6 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
 
   // 달력 보여주는 형식
   CalendarFormat calendarFormat = CalendarFormat.month;
-
   // 선택된 날짜
   DateTime selectedDate = DateTime.now();
 
@@ -210,6 +214,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                             SizedBox(
                                               width: 24,
                                             ),
+                                            CircleAvatar(
+                                              backgroundImage: Image.file(
+                                                File(plant.plantimagepath),
+                                              ).image,
+                                              radius: 40,
+                                            ),
                                             Container(
                                               margin: EdgeInsets.all(6),
                                               padding: EdgeInsets.symmetric(
@@ -369,6 +379,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                 SizedBox(
                                                   width: 24,
                                                 ),
+                                                CircleAvatar(
+                                                  backgroundImage: Image.file(
+                                                    File(plant.plantimagepath),
+                                                  ).image,
+                                                  radius: 40,
+                                                ),
                                                 Container(
                                                   margin: EdgeInsets.all(6),
                                                   padding: EdgeInsets.symmetric(
@@ -444,7 +460,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
             child: Icon(Icons.create),
             backgroundColor: Colors.indigo,
             onPressed: () {
-              showCreateDialog(plantService);
+              //showCreateDialog(plantService);
             },
           ),
         );
