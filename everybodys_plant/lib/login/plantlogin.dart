@@ -1,9 +1,11 @@
 //로그인 홈화면
 import 'package:everybodys_plant/certification/email_auth_service.dart';
 import 'package:everybodys_plant/home/home_frame.dart';
+import 'package:everybodys_plant/login/ForgetPassword_page.dart';
 import 'package:everybodys_plant/login/setting_page.dart';
 import 'package:everybodys_plant/login/signup_page.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:everybodys_plant/schedule/scheduler_org.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -76,44 +78,17 @@ class _LoginHomeState extends State<LoginHome> {
                           TextButton(
                             onPressed: () {
                               Navigator.push(
-                                  //MaterialPageRoute 안정장치로 Builder를사용해 Route기능으로
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => FindID()));
+                                      builder: (context) =>
+                                          ForgotPasswordPage()));
                             },
                             style: TextButton.styleFrom(primary: Colors.black),
                             child: Text(
-                              "아이디",
+                              "비밀번호를 잊으셨나요?",
                               style: TextStyle(
                                 color: Colors.black45,
                               ),
-                            ),
-                          ),
-                          Text(
-                            "|",
-                            style: TextStyle(
-                              color: Colors.black45,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => FindPassword()));
-                            },
-                            style: TextButton.styleFrom(primary: Colors.black),
-                            child: Text(
-                              "비밀번호",
-                              style: TextStyle(
-                                color: Colors.black45,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "찾기",
-                            style: TextStyle(
-                              color: Colors.black45,
                             ),
                           ),
                         ],
@@ -216,212 +191,7 @@ TextFormField _buildTextFormField(
   );
 }
 
-//아이디 찾기
-class FindID extends StatelessWidget {
-  const FindID({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: plantPrimaryColor,
-        title: Text("아이디 찾기"),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 62,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-            Text(
-              "회원님의 이름과\n전화번호를 입력해주세요",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 18),
-            TextFormField(
-                decoration: InputDecoration(
-              hintText: "이름을 입력해주세요",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            )),
-            SizedBox(height: 20),
-            TextFormField(
-              decoration: InputDecoration(
-                  hintText: "핸드폰 번호를 입력해주세요",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8))),
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FindIDDetail()));
-                },
-                style: TextButton.styleFrom(
-                  primary: Colors.white, // 텍스트 컬러
-                  shape: RoundedRectangleBorder(
-                    // 라운드형 보더
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  backgroundColor: plantPrimaryColor,
-                ),
-                child: Text("다음"),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// 아이디찾기 디데일
-class FindIDDetail extends StatelessWidget {
-  const FindIDDetail({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("아이디 찾기"),
-        backgroundColor: plantPrimaryColor,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "고객님의 아이디 목록입니다.",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 50),
-            Text("seijin0722@naver.com"),
-            SizedBox(height: 50),
-            TextButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
-              },
-              style: TextButton.styleFrom(
-                primary: Colors.white, // 텍스트 컬러
-                shape: RoundedRectangleBorder(
-                  // 라운드형 보더
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                backgroundColor: plantPrimaryColor,
-              ),
-              child: Text("로그인"),
-            ),
-            SizedBox(height: 20),
-            TextButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignupPage()));
-              },
-              style: TextButton.styleFrom(primary: Colors.black),
-              child: Text("회원가입"),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 //비밀번호 찾기
-class FindPassword extends StatelessWidget {
-  const FindPassword({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: plantPrimaryColor,
-        title: Text("비밀번호 찾기"),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 62,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-            Text(
-              "회원님의 이메일과\n전화번호를 입력해주세요",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 18),
-            TextFormField(
-                decoration: InputDecoration(
-              hintText: "이메일을 입력해주세요",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            )),
-            SizedBox(height: 20),
-            TextFormField(
-              decoration: InputDecoration(
-                  hintText: "핸드폰 번호를 입력해주세요",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8))),
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FindPWDetail()));
-                },
-                style: TextButton.styleFrom(
-                  primary: Colors.white, // 텍스트 컬러
-                  shape: RoundedRectangleBorder(
-                    // 라운드형 보더
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  backgroundColor: plantPrimaryColor,
-                ),
-                child: Text("다음"),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-//비밀번호 찾기 디테일
-class FindPWDetail extends StatelessWidget {
-  const FindPWDetail({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("비밀번호 찾기"),
-        backgroundColor: plantPrimaryColor,
-      ),
-      body: Center(
-        child: Text("고객님의 비밀번호입니다."),
-      ),
-    );
-  }
-}
 
 //로그인 후 메인홈
 class MainHome extends StatelessWidget {

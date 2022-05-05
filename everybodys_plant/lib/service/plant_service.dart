@@ -7,12 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Plant {
-  String? plantname; // 식물명
-  String? nickname; // 애칭
+  String plantname; // 식물명
+  String nickname; // 애칭
   DateTime createdAt; // 마지막 물준날
-  bool skillchecked; // 숙련자 Check여부
-  int flowerpotindex; // 화분 종류
-  int flowerspaceindex; // 공간 종류
+  String skillchecked; // 숙련자 Check여부
+  String flowerpotindex; // 화분 종류
+  String flowerspaceindex; // 공간 종류
+  DateTime lastwaterAt;
+  DateTime lastpotchangedAt;
 
   Plant(
       {required this.plantname, // 식물명
@@ -20,8 +22,9 @@ class Plant {
       required this.createdAt, // 마지막 물준날
       required this.skillchecked, // 숙련자 Check여부
       required this.flowerpotindex, // 화분 종류
-      required this.flowerspaceindex // 공간 종류
-      });
+      required this.flowerspaceindex, // 공간 종류
+      required this.lastwaterAt,
+      required this.lastpotchangedAt});
 
   /// Plant -> Map 변경
   Map<String, dynamic> toJson() {
@@ -32,6 +35,8 @@ class Plant {
       "skillchecked": skillchecked,
       "flowerpotindex": flowerpotindex,
       "flowerspaceindex": flowerspaceindex,
+      "lastwaterAt": lastwaterAt.toString(),
+      "lastdpotchangedAt": lastpotchangedAt.toString()
       // DateTime은 문자열로 변경해야 jsonString으로 변환 가능합니다.
     };
   }
@@ -45,6 +50,8 @@ class Plant {
       skillchecked: jsonMap['skillchecked'],
       flowerpotindex: jsonMap['flowerpotindex'],
       flowerspaceindex: jsonMap['flowerspaceindex'],
+      lastwaterAt: DateTime.parse(jsonMap['lastwaterAt']),
+      lastpotchangedAt: DateTime.parse(jsonMap['lastpotchangedAt']),
       // 문자열로 넘어온 시간을 DateTime으로 다시 바꿔줍니다.
     );
   }
@@ -79,8 +86,15 @@ class PlantService extends ChangeNotifier {
   }
 
   /// Plant 작성
-  void create(String plantname, String nickname, bool skillchecked,
-      int flowerpotindex, int flowerspaceindex, DateTime selectedDate) {
+  void create(
+      String plantname,
+      String nickname,
+      String skillchecked,
+      String flowerpotindex,
+      String flowerspaceindex,
+      DateTime selectedDate,
+      DateTime _lastwaterAt,
+      DateTime _lastpotchangedAt) {
     DateTime now = DateTime.now();
 
     // 선택된 날짜(selectedDate)에 현재 시간으로 추가
@@ -93,14 +107,33 @@ class PlantService extends ChangeNotifier {
       now.second,
     );
 
-    Plant plant = Plant(
-      plantname: plantname,
-      nickname: nickname,
-      createdAt: createdAt,
-      skillchecked: skillchecked,
-      flowerpotindex: flowerpotindex,
-      flowerspaceindex: flowerspaceindex,
+    // 선택된 날짜(selectedDate)에 현재 시간으로 추가
+    DateTime lastwaterAt = DateTime(
+      _lastwaterAt.year,
+      _lastwaterAt.month,
+      _lastwaterAt.day,
+      now.hour,
+      now.minute,
+      now.second,
     );
+    // 선택된 날짜(selectedDate)에 현재 시간으로 추가
+    DateTime lastpotchangedAt = DateTime(
+      _lastpotchangedAt.year,
+      _lastpotchangedAt.month,
+      _lastpotchangedAt.day,
+      now.hour,
+      now.minute,
+      now.second,
+    );
+    Plant plant = Plant(
+        plantname: plantname,
+        nickname: nickname,
+        createdAt: createdAt,
+        skillchecked: skillchecked,
+        flowerpotindex: flowerpotindex,
+        flowerspaceindex: flowerspaceindex,
+        lastwaterAt: lastwaterAt,
+        lastpotchangedAt: lastpotchangedAt);
 
     PlantList.add(plant);
     notifyListeners();
@@ -111,7 +144,7 @@ class PlantService extends ChangeNotifier {
 
   /// Plant 수정
   void update(DateTime createdAt, String plantname, String nickname,
-      bool skillchecked, int flowerpotindex, int flowerspaceindex) {
+      String skillchecked, String flowerpotindex, String flowerspaceindex) {
     // createdAt은 중복될 일이 없기 때문에 createdAt을 고유 식별자로 사용
     // createdAt이 일치하는 plant 조회
     Plant plant = PlantList.firstWhere((plant) => plant.createdAt == createdAt);

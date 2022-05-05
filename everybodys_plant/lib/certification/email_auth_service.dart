@@ -112,7 +112,21 @@ class EmailAuthService extends ChangeNotifier {
       onError(e.toString());
     }
   }
-}
 
-void signOut() async {}
-//
+  void signOut() async {
+    //로그아웃
+    await FirebaseAuth.instance.signOut();
+    notifyListeners(); // 로그인 상태 변경 알림
+  }
+
+//회원탈퇴
+  Future<void> withdrawalAccount() async {
+    await FirebaseAuth.instance.currentUser!.delete();
+    notifyListeners();
+  }
+
+//비밀번호
+  Future<void> resetPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+}
