@@ -80,9 +80,10 @@ class _PlantListState extends State<PlantList> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => RegisterPage(
-                                        plantname: 'scindapsus',
-                                      )),
+                                builder: (context) => RegisterPage(
+                                  plantname: 'scindapsus',
+                                ),
+                              ),
                             );
                           },
                         ),

@@ -11,6 +11,8 @@ import 'package:everybodys_plant/service/plant_service.dart';
 import 'package:everybodys_plant/home/home_done.dart';
 import 'package:everybodys_plant/register/renderTextFormField.dart';
 
+import '../service/notification_service.dart';
+
 class RegisterPage extends StatefulWidget {
   String? plantname = ""; // 식물 이름 가져올 변수
   final PlantService? test_plantservice;
@@ -779,6 +781,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                           TextButton(
                                             onPressed: () {
                                               createPlant(plantService);
+                                              //알람 등록
+                                              NotificationService()
+                                                  .showNotification(1, "모두의 식물",
+                                                      "오늘은 물주는 날이에요!", 1);
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(

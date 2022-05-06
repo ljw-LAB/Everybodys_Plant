@@ -61,6 +61,8 @@ dependencies:
   firebase_messaging: ^11.2.14
   get: ^4.6.1
   animated_splash_screen: ^1.2.0
+  flutter_local_notifications: ^9.5.2
+  timezone: ^0.8.0
 
 dev_dependencies:
   flutter_test:

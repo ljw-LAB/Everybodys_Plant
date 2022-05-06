@@ -5,9 +5,13 @@ import 'dart:core';
 
 import 'package:everybodys_plant/register/plantlist.dart';
 import 'package:everybodys_plant/register/register_page.dart';
+import 'package:everybodys_plant/service/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 //변수 리스트
 List<Color> primaryColorList = [
@@ -63,6 +67,13 @@ class HomeDonePage extends StatefulWidget {
 
 class _HomeDonePageState extends State<HomeDonePage> {
   @override
+  void initState() {
+    super.initState();
+
+    tz.initializeTimeZones();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
@@ -72,6 +83,20 @@ class _HomeDonePageState extends State<HomeDonePage> {
           Center(
             child: Column(
               children: [
+                GestureDetector(
+                  onTap: () {
+                    NotificationService()
+                        .showNotification(1, "title", "body", 5);
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 200,
+                    color: Colors.green,
+                    child: Center(
+                      child: Text("Show Notification"),
+                    ),
+                  ),
+                ),
                 //미등록 시
                 Visibility(
                   visible: _isVisible,
