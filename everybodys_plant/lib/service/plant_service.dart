@@ -4,6 +4,7 @@ import 'package:everybodys_plant/home/Bottomhome.dart';
 import 'package:everybodys_plant/main.dart';
 import 'package:everybodys_plant/register/plantlist.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -14,6 +15,9 @@ class Plant {
   String skillchecked; // 숙련자 Check여부
   String flowerpotindex; // 화분 종류
   String flowerspaceindex; // 공간 종류
+  DateTime lastwaterAt;
+  DateTime lastpotchangedAt;
+  String plantimagepath;
 
   Plant(
       {required this.plantname, // 식물명
@@ -21,8 +25,10 @@ class Plant {
       required this.createdAt, // 마지막 물준날
       required this.skillchecked, // 숙련자 Check여부
       required this.flowerpotindex, // 화분 종류
-      required this.flowerspaceindex // 공간 종류
-      });
+      required this.flowerspaceindex, // 공간 종류
+      required this.lastwaterAt,
+      required this.lastpotchangedAt,
+      required this.plantimagepath});
 
   /// Plant -> Map 변경
   Map<String, dynamic> toJson() {
@@ -33,6 +39,9 @@ class Plant {
       "skillchecked": skillchecked,
       "flowerpotindex": flowerpotindex,
       "flowerspaceindex": flowerspaceindex,
+      "lastwaterAt": lastwaterAt.toString(),
+      "lastdpotchangedAt": lastpotchangedAt.toString(),
+      "plantimagepath": plantimagepath
       // DateTime은 문자열로 변경해야 jsonString으로 변환 가능합니다.
     };
   }
@@ -40,14 +49,17 @@ class Plant {
   /// Map -> Plant 변경
   factory Plant.fromJson(Map<String, dynamic> jsonMap) {
     return Plant(
-      plantname: jsonMap['plantname'],
-      nickname: jsonMap['nickname'],
-      createdAt: DateTime.parse(jsonMap['createdAt']),
-      skillchecked: jsonMap['skillchecked'],
-      flowerpotindex: jsonMap['flowerpotindex'],
-      flowerspaceindex: jsonMap['flowerspaceindex'],
-      // 문자열로 넘어온 시간을 DateTime으로 다시 바꿔줍니다.
-    );
+        plantname: jsonMap['plantname'],
+        nickname: jsonMap['nickname'],
+        createdAt: DateTime.parse(jsonMap['createdAt']),
+        skillchecked: jsonMap['skillchecked'],
+        flowerpotindex: jsonMap['flowerpotindex'],
+        flowerspaceindex: jsonMap['flowerspaceindex'],
+        lastwaterAt: DateTime.parse(jsonMap['lastwaterAt']),
+        lastpotchangedAt: DateTime.parse(jsonMap['lastpotchangedAt']),
+        plantimagepath: jsonMap['plantimagepath']
+        // 문자열로 넘어온 시간을 DateTime으로 다시 바꿔줍니다.
+        );
   }
 }
 
@@ -80,8 +92,16 @@ class PlantService extends ChangeNotifier {
   }
 
   /// Plant 작성
-  void create(String plantname, String nickname, String skillchecked,
-      String flowerpotindex, String flowerspaceindex, DateTime selectedDate) {
+  void create(
+      String plantname,
+      String nickname,
+      String skillchecked,
+      String flowerpotindex,
+      String flowerspaceindex,
+      DateTime selectedDate,
+      DateTime _lastwaterAt,
+      DateTime _lastpotchangedAt,
+      String plantimagepath) {
     DateTime now = DateTime.now();
 
     // 선택된 날짜(selectedDate)에 현재 시간으로 추가
@@ -94,14 +114,34 @@ class PlantService extends ChangeNotifier {
       now.second,
     );
 
-    Plant plant = Plant(
-      plantname: plantname,
-      nickname: nickname,
-      createdAt: createdAt,
-      skillchecked: skillchecked,
-      flowerpotindex: flowerpotindex,
-      flowerspaceindex: flowerspaceindex,
+    // 선택된 날짜(selectedDate)에 현재 시간으로 추가
+    DateTime lastwaterAt = DateTime(
+      _lastwaterAt.year,
+      _lastwaterAt.month,
+      _lastwaterAt.day,
+      now.hour,
+      now.minute,
+      now.second,
     );
+    // 선택된 날짜(selectedDate)에 현재 시간으로 추가
+    DateTime lastpotchangedAt = DateTime(
+      _lastpotchangedAt.year,
+      _lastpotchangedAt.month,
+      _lastpotchangedAt.day,
+      now.hour,
+      now.minute,
+      now.second,
+    );
+    Plant plant = Plant(
+        plantname: plantname,
+        nickname: nickname,
+        createdAt: createdAt,
+        skillchecked: skillchecked,
+        flowerpotindex: flowerpotindex,
+        flowerspaceindex: flowerspaceindex,
+        lastwaterAt: lastwaterAt,
+        lastpotchangedAt: lastpotchangedAt,
+        plantimagepath: plantimagepath);
 
     PlantList.add(plant);
     notifyListeners();
