@@ -1,6 +1,8 @@
 import 'dart:io';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+
+import 'package:everybodys_plant/schedule/scheduler.dart';
+import 'package:everybodys_plant/schedule/scheduler_org.dart';
+import 'package:everybodys_plant/service/plant_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,6 +12,8 @@ import 'package:everybodys_plant/schedule/scheduler_org.dart';
 import 'package:everybodys_plant/service/plant_service.dart';
 import 'package:everybodys_plant/home/home_done.dart';
 import 'package:everybodys_plant/register/renderTextFormField.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../service/notification_service.dart';
 
@@ -127,41 +131,6 @@ class _RegisterPageState extends State<RegisterPage> {
       _image = image!;
     });
   }
-
-  // takeImage(mContext) {
-  //   return showDialog(
-  //       context: mContext,
-  //       builder: (context) {
-  //         return SimpleDialog(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(8.0),
-  //           ),
-  //           title: Text(
-  //             'New Post',
-  //             style: TextStyle(
-  //               color: Colors.black,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //           ),
-  //           children: [
-  //             SimpleDialogOption(
-  //               child: Text('Capture Image with Camera',
-  //                   style: TextStyle(color: Colors.black)),
-  //               onPressed: getImageFromCam,
-  //             ),
-  //             SimpleDialogOption(
-  //               child: Text('Select Image from Gallery',
-  //                   style: TextStyle(color: Colors.black)),
-  //               onPressed: getImageFromGallery,
-  //             ),
-  //             SimpleDialogOption(
-  //               child: Text('Cancel', style: TextStyle(color: Colors.grey)),
-  //               onPressed: () => Navigator.pop(context),
-  //             ),
-  //           ],
-  //         );
-  //       });
-  // }
 
   final formKey = GlobalKey<FormState>(); // Form - TextFormField 위젯 사용을 위한 변수
 
@@ -487,41 +456,32 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Container(
                       height: 40,
                       width: 370,
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('   ${widget.plantname}',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 16)),
-                            DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                value: potitems_value,
-                                isExpanded: true,
-                                iconSize: 24,
-                                icon: Icon(Icons.arrow_drop_down,
-                                    color: Colors.black),
-                                style: const TextStyle(color: Colors.black),
-                                items: potitems.map((String potitems_map_val) {
-                                  return DropdownMenuItem(
-                                    value: potitems_map_val,
-                                    child: Text(potitems_map_val),
-                                  );
-                                }).toList(),
-                                onChanged: (potitems_val) {
-                                  setState(() {
-                                    potitems_value = potitems_val as String;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.grey, width: 1),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          value: potitems_value,
+                          isExpanded: true,
+                          iconSize: 24,
+                          icon:
+                              Icon(Icons.arrow_drop_down, color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
+                          items: potitems.map((String potitems_map_val) {
+                            return DropdownMenuItem(
+                              value: potitems_map_val,
+                              child: Text(potitems_map_val),
+                            );
+                          }).toList(),
+                          onChanged: (potitems_val) {
+                            setState(() {
+                              potitems_value = potitems_val as String;
+                            });
+                          },
                         ),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
                       ),
                     ),
                   ),
@@ -597,8 +557,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       SizedBox(width: 24),
                       Text("마지막 분갈이 날짜",
-                          style: TextStyle(
-                              fontSize: 20, color: Color(0xff6B7583))),
+                          style: TextStyle(color: Color(0xff6B7583))),
                     ],
                   ),
                 ),
