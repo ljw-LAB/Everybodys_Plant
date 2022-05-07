@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
             return AnimatedSplashScreen(
               duration: 2000, //머무는 시간
               splash: Image.asset(
-                'assets/splashtest.png',
+                'assets/splashimg.png',
                 fit: BoxFit.cover,
               ),
               splashIconSize: double.infinity,
@@ -88,11 +88,6 @@ class MyApp extends StatelessWidget {
         // ),
       ),
     );
-    //home: user == null ? Plant_schedule_Page() : LoginHome(),
-    //home: EmailAuthService(),
-    //home: LoginHome(),
-    //home: Plant_schedule_Page(),
-    //home: Loading(),
   }
 }
 

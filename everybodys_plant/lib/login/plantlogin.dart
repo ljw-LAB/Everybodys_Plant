@@ -28,6 +28,7 @@ class _LoginHomeState extends State<LoginHome> {
 
   //oop를 알면 이해 쉬움 => 앱 실행후 아래 OutlineInputBorde가 생성되기 전에 이미 생성되어있음
   final double _cornerRadius = 8.0;
+
   //로그인 버튼 radius 고정값
   final OutlineInputBorder _border = OutlineInputBorder(
       // 텍스트필드 파란프레임 제거용
@@ -39,6 +40,7 @@ class _LoginHomeState extends State<LoginHome> {
     return Consumer<EmailAuthService>(
       builder: (context, service, child) {
         final user = service.currentUser();
+
         return Scaffold(
           // 텍스트필드를 쳤을때 키보드가 올라오면 29픽셀이 오버플로우되는 현상
           // 이를 해결하기 위해 Scaffold 의 resizeToAvoidBottomInset: false 속성 값 적용
@@ -102,10 +104,12 @@ class _LoginHomeState extends State<LoginHome> {
                           password: passwordController.text,
                           onSuccess: () {
                             // 로그인 성공
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyHomePage()));
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyHomePage()),
+                              ((route) => false),
+                            );
                             //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             //  content: Text("로그인 성공"),
                             // ));

@@ -83,20 +83,21 @@ class _HomeDonePageState extends State<HomeDonePage> {
           Center(
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    NotificationService()
-                        .showNotification(1, "title", "body", 5);
-                  },
-                  child: Container(
-                    height: 40,
-                    width: 200,
-                    color: Colors.green,
-                    child: Center(
-                      child: Text("Show Notification"),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     NotificationService()
+                //         .showNotificationSec(1, "title", "body", 1);
+                //     print('notification ON');
+                //   },
+                //   child: Container(
+                //     height: 40,
+                //     width: 200,
+                //     color: Colors.green,
+                //     child: Center(
+                //       child: Text("Show Notification"),
+                //     ),
+                //   ),
+                // ),
                 //미등록 시
                 Visibility(
                   visible: _isVisible,
@@ -338,7 +339,7 @@ class _HomeDonePageState extends State<HomeDonePage> {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/banner_1.png'),
+                          image: AssetImage('assets/banner_2.png'),
                           fit: BoxFit.fill,
                         ),
                         borderRadius: BorderRadius.circular(6),

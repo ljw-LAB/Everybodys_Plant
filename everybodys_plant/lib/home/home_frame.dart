@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -46,64 +45,70 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(48),
-        child: SafeArea(
-          child: Container(
-            height: 48,
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Row(
-                children: [
-                  //알람 버튼
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: 24,
-                      height: 24,
+        child: WillPopScope(
+          onWillPop: () {
+            return Future(() => false);
+          },
+          child: SafeArea(
+            child: Container(
+              height: 48,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: Row(
+                  children: [
+                    //알람 버튼
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/Bell.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(child: SizedBox(width: 98)),
+                    //제목 버튼
+                    Container(
+                      width: 83.17,
+                      height: 16,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/Bell.png'),
+                          image: AssetImage('assets/title.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(child: SizedBox(width: 98)),
-                  //제목 버튼
-                  Container(
-                    width: 83.17,
-                    height: 16,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/title.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Expanded(child: SizedBox(width: 98)),
+                    Expanded(child: SizedBox(width: 98)),
 
-                  //오른쪽 설정 버튼
-                  GestureDetector(
-                    onTap: () {
-                      print("setting page");
-                      // 로그인 페이지로 이동
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingPage()),
-                      );
-                    },
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/Setting.png'),
-                          fit: BoxFit.cover,
+                    //오른쪽 설정 버튼
+                    GestureDetector(
+                      onTap: () {
+                        print("setting page");
+                        // 로그인 페이지로 이동
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SettingPage()),
+                        );
+                      },
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/Setting.png'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

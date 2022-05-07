@@ -65,42 +65,6 @@ class _ManageProfileInformationWidegetState
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "닉네임",
-                        hintText: "닉네임을 입력해주세요",
-                      ),
-                      controller: _displayNameController,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        primary: Colors.black, // 텍스트 컬러
-                        shape: RoundedRectangleBorder(
-                          // 라운드형 보더
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        backgroundColor: plantPrimaryColor,
-                      ),
-                      child: Text(
-                        "변경",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
               TextFormField(
                 obscureText: true, // 비밀번호 안보이게 하기
                 controller: _newPasswordController,
@@ -133,6 +97,7 @@ class _ManageProfileInformationWidegetState
                     padding: const EdgeInsets.all(10),
                     child: TextButton(
                       onPressed: () {
+                        service.changePassword; //=작동x
                         if (_formKey.currentState!.validate()) {
                           Navigator.pop(context);
                         }

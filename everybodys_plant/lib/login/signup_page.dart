@@ -61,93 +61,34 @@ class _SignupPageState extends State<SignupPage> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(15),
             child: ListView(
               children: [
-                SizedBox(height: 20),
-                Row(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(
-                      child: TextFormField(
-                        //  onSaved: (deger) => = deger!,
-                        textInputAction: TextInputAction.done,
-                        controller: displaynameController,
-                        decoration: InputDecoration(
-                          labelText: "닉네임",
-                          hintText: "6자 이내로 입력하세요.",
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return '적어도 1글자 이상 입력하세요';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onSaved: (value) => setState(() => username = value!),
-                      ),
+                    SizedBox(height: 16),
+                    Text(
+                      "회원가입을 하기 위해\n이메일과 비밀번호를 입력해주세요.",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          final isValid = formKey.currentState!.validate();
-
-                          if (isValid) {
-                            formKey.currentState!.save();
-                          }
-                        },
-                        child: TextButton(
-                          onPressed: () =>
-                              setState(() => isVisible = !isVisible),
-                          style: TextButton.styleFrom(
-                            primary: Colors.black, // 텍스트 컬러
-                            shape: RoundedRectangleBorder(
-                              // 라운드형 보더
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor: plantPrimaryColor,
-                          ),
-                          child: Text(
-                            "중복체크",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
+                    SizedBox(height: 40),
+                    Text("이메일"),
+                    _buildTextFormField2("", emailController),
+                    SizedBox(height: 12),
+                    Text("비밀번호"),
+                    _buildTextFormField2("", signupforPWController),
+                    SizedBox(height: 12),
                   ],
                 ),
-                Visibility(
-                  // ListView는 Visibility랑 호환X
-                  visible: isVisible,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 50),
-                      _buildTextFormField2(
-                        "이메일을 입력해주세요",
-                        emailController,
-                      ),
-                      SizedBox(height: 16),
-                      _buildTextFormField2(
-                          "비밀번호를 입력해주세요", signupforPWController),
-                      SizedBox(height: 16),
-                      //_buildTextFormField2(
-                      //    "비밀번호를 다시 입력해주세요", _cPasswordController),
-                      //SizedBox(height: 16),
-                      //_buildTextFormField2(
-                      //    "연락처를 입력해주세요", _ContactnumberController),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20),
-                Visibility(
-                  visible: isVisible,
-                  child: TextButton(
-                    onPressed: () {
+                Spacer(),
+                Positioned(
+                  bottom: 18,
+                  left: 24,
+                  right: 24,
+                  child: GestureDetector(
+                    onTap: () {
                       // EmailAuthService의 sign up함수호출
                       EmailAuthService.signUp(
                         email: emailController.text,
@@ -276,15 +217,22 @@ class _SignupPageState extends State<SignupPage> {
                         },
                       );
                     },
-                    style: TextButton.styleFrom(
-                      primary: Colors.white, // 텍스트 컬러
-                      shape: RoundedRectangleBorder(
-                        // 라운드형 보더
-                        borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      width: double.infinity,
+                      height: 58,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: Colors.transparent,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                          color: plantPrimaryColor),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "계정 등록하기",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      backgroundColor: plantPrimaryColor,
                     ),
-                    child: Text("등록하기"),
                   ),
                 ),
               ],
@@ -294,25 +242,25 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
-}
 
-TextFormField _buildTextFormField2(
-    String labelText, TextEditingController controller) {
-  return TextFormField(
-    cursorColor: Colors.black, //커서 색깔
-    controller: controller,
-    validator: (text) {
-      if (text == null || text.isEmpty) {
-        return "입력창이 비어있어요!";
-      }
+  TextFormField _buildTextFormField2(
+      String labelText, TextEditingController controller) {
+    return TextFormField(
+      cursorColor: plantPrimaryColor, //커서 색깔
+      controller: controller,
+      validator: (text) {
+        if (text == null || text.isEmpty) {
+          return "입력창이 비어있어요!";
+        }
 
-      return null;
-    },
-    style: TextStyle(color: Colors.black45), //글씨 색깔
-    decoration: InputDecoration(
-      filled: true, // 텍스트필드 내부 색깔 채울건지 여부
-      fillColor: Colors.white, // 텍스트필드 색깔
-      labelText: labelText,
-    ),
-  );
+        return null;
+      },
+      style: TextStyle(color: Colors.black45), //글씨 색깔
+      decoration: InputDecoration(
+        filled: true, // 텍스트필드 내부 색깔 채울건지 여부
+        fillColor: Colors.white, // 텍스트필드 색깔
+        labelText: labelText,
+      ),
+    );
+  }
 }

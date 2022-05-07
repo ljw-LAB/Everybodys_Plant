@@ -63,6 +63,33 @@ class NotificationService {
     );
   }
 
+  Future<void> showNotificationSec(
+      int id, String title, String body, int seconds) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.now(tz.local).add(Duration(seconds: seconds)),
+      const NotificationDetails(
+        android: AndroidNotificationDetails('main_channel', 'Main Channel',
+            channelDescription: 'Main channel notifications',
+            importance: Importance.max,
+            priority: Priority.max,
+            icon: '@drawable/ic_flutternotification'),
+        // iOS: IOSNotificationDetails(
+        //   sound: 'default.wav',
+        //   presentAlert: true,
+        //   presentBadge: true,
+        //   presentSound: true,
+        // ),
+      ),
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      androidAllowWhileIdle: true,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+  }
+
   // Future<void> _scheduleDailyTenAMNotification() async {
   //   await flutterLocalNotificationsPlugin.zonedSchedule(
   //       0,

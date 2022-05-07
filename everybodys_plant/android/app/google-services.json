@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "803483726942",
-    "project_id": "plantlogin",
-    "storage_bucket": "plantlogin.appspot.com"
+    "project_number": "999916556306",
+    "project_id": "everybodysplant-3bb42",
+    "storage_bucket": "everybodysplant-3bb42.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:803483726942:android:45bc1e0ae419282edbb0cf",
+        "mobilesdk_app_id": "1:999916556306:android:4e6ce2c7768468e87608cb",
         "android_client_info": {
           "package_name": "com.example.everybodys_plant"
         }
       },
       "oauth_client": [
         {
-          "client_id": "803483726942-vv62hb5co0ieknrrc7vosnlen48ndbcv.apps.googleusercontent.com",
+          "client_id": "999916556306-b4ac0h5dq8n3q99u8dg610lh8e4ctqeh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDbftvGAY4AqcvsS1ui-o9TMRGLPwW_gas"
+          "current_key": "AIzaSyDUtA1YK0lEHfImiHPXpG7OeKGhdjOjtyw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "803483726942-vv62hb5co0ieknrrc7vosnlen48ndbcv.apps.googleusercontent.com",
+              "client_id": "999916556306-b4ac0h5dq8n3q99u8dg610lh8e4ctqeh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

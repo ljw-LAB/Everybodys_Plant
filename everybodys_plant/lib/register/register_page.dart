@@ -142,6 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
       List<Plant> plantList = plantService.getByDate(DateTime.now());
       return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           leading: BackButton(color: Colors.grey),
           title: Text("식물정보 등록",
               style:
@@ -326,15 +327,25 @@ class _RegisterPageState extends State<RegisterPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('   ${widget.plantname}',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 16)),
+                              Text(
+                                '   ${widget.plantname}',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
                             ],
                           ),
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                            //세진이 수정한 부분
+                            border: Border(
+                              bottom:
+                                  BorderSide(color: Colors.black12, width: 0),
+                            ), //희동님이 만드신 부분
+                            // border: Border.all(color: Colors.grey),
+                            // borderRadius:
+                            //     BorderRadius.all(Radius.circular(10))),
+                          ),
                         ),
                       ),
                     ),
@@ -439,6 +450,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Text("숙련자", style: TextStyle(color: Color(0xff6B7583))),
                   ],
                 ),
+                SizedBox(height: 4),
                 Visibility(
                   visible: isVisible,
                   child: Row(
@@ -459,8 +471,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey, width: 1),
+                        //세진이 수정한 부분
+                        border: Border(
+                          bottom: BorderSide(color: Colors.black12, width: 1),
+                        ),
+                        // borderRadius: BorderRadius.circular(12),
+                        // border: Border.all(color: Colors.grey, width: 1),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
@@ -486,6 +502,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 4),
                 Visibility(
                   visible: isVisible,
                   child: Row(
@@ -496,6 +513,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                 ),
+                SizedBox(height: 4),
                 Visibility(
                   visible: isVisible,
                   child: Center(
@@ -505,8 +523,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey, width: 1),
+                        //세진이 수정한 부분
+                        border: Border(
+                          bottom: BorderSide(color: Colors.black12, width: 1),
+                        ), //희동님이 만드신 부분
+
+                        // borderRadius: BorderRadius.circular(12),
+                        // border: Border.all(color: Colors.grey, width: 1),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
@@ -557,7 +580,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       SizedBox(width: 24),
                       Text("마지막 분갈이 날짜",
-                          style: TextStyle(color: Color(0xff6B7583))),
+                          style: TextStyle(
+                              fontSize: 20, color: Color(0xff6B7583))),
                     ],
                   ),
                 ),
@@ -629,8 +653,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey, width: 1),
+                        //세진이 수정한 부분
+                        border: Border(
+                          bottom: BorderSide(color: Colors.black12, width: 1),
+                        ), //희동님이 만드신 부분
+                        // borderRadius: BorderRadius.circular(12),
+                        // border: Border.all(color: Colors.grey, width: 1),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
@@ -832,4 +860,101 @@ class _RegisterPageState extends State<RegisterPage> {
       // createTextController_flowerspaceindex.text = "";
     }
   }
+//     Widget LastWaterdayText() {
+//     return GestureDetector(
+//       onTap: () {
+//         HapticFeedback.mediumImpact();
+//         _selectDate();
+//       },
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text('마지막 물 준 날',
+//               style: TextStyle(fontSize: 15, color: Colors.blueGrey)),
+//           TextFormField(
+//             enabled: false,
+//             decoration: InputDecoration(
+//               isDense: true,
+//             ),
+//             controller: _BirthdayController,
+//             style: TextStyle(fontSize: 20),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   _selectDate() async {
+//     DateTime? pickedDate = await showModalBottomSheet<DateTime>(
+//       backgroundColor: ThemeData.light().scaffoldBackgroundColor,
+//       context: context,
+//       builder: (context) {
+//         // DateTime tempPickedDate;
+//         return Container(
+//           height: 300,
+//           child: Column(
+//             children: <Widget>[
+//               Container(
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: <Widget>[
+//                     CupertinoButton(
+//                       child: Text('취소'),
+//                       onPressed: () {
+//                         Navigator.of(context).pop();
+//                         FocusScope.of(context).unfocus();
+//                       },
+//                     ),
+//                     CupertinoButton(
+//                       child: Text('완료'),
+//                       onPressed: () {
+//                         Navigator.of(context).pop(tempPickedDate);
+//                         FocusScope.of(context).unfocus();
+//                       },
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               Divider(
+//                 height: 0,
+//                 thickness: 1,
+//               ),
+//               Expanded(
+//                 child: Container(
+//                   child: CupertinoDatePicker(
+//                     backgroundColor: ThemeData.light().scaffoldBackgroundColor,
+//                     minimumYear: 1900,
+//                     maximumYear: DateTime.now().year,
+//                     initialDateTime: DateTime.now(),
+//                     maximumDate: DateTime.now(),
+//                     mode: CupertinoDatePickerMode.date,
+//                     onDateTimeChanged: (DateTime dateTime) {
+//                       tempPickedDate = dateTime;
+//                     },
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         );
+//       },
+//     );
+
+//     if (pickedDate != null && pickedDate != _selectedDate) {
+//       setState(() {
+//         _selectedDate = pickedDate;
+//         _BirthdayController.text = pickedDate.toString();
+//         convertDateTimeDisplay(_BirthdayController.text);
+//       });
+//     }
+//   }
+
+//   String convertDateTimeDisplay(String date) {
+//     final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
+//     final DateFormat serverFormater = DateFormat('yyyy-MM-dd');
+//     final DateTime displayDate = displayFormater.parse(date);
+//     return _BirthdayController.text = serverFormater.format(displayDate);
+//   }
+// }
+
 }

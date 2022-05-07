@@ -16,8 +16,10 @@ import 'package:everybodys_plant/service/plant_service.dart';
 // ignore: camel_case_types
 class Plant_schedule_Page extends StatefulWidget {
   final PlantService? test_service;
+  final String? test_image;
 
-  const Plant_schedule_Page({Key? key, @required this.test_service})
+  const Plant_schedule_Page(
+      {Key? key, @required this.test_service, @required this.test_image})
       : super(key: key);
 
   @override
@@ -212,6 +214,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                             SizedBox(
                                               width: 24,
                                             ),
+                                            CircleAvatar(
+                                              backgroundImage: Image.file(
+                                                File(plant.plantimagepath),
+                                              ).image,
+                                              radius: 40,
+                                            ),
                                             Container(
                                               margin: EdgeInsets.all(6),
                                               padding: EdgeInsets.symmetric(
@@ -242,6 +250,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.bold)),
+                                                TextButton(
+                                                  child: const Text('선택하기'),
+                                                  onPressed: () {
+                                                    print(plantService);
+                                                  },
+                                                ),
                                               ],
                                             ),
                                           ],
@@ -278,7 +292,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                       "분갈이 일정",
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                          color: primaryColorList[2],
+                          color: primaryColorList[1],
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
@@ -365,6 +379,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                 SizedBox(
                                                   width: 24,
                                                 ),
+                                                CircleAvatar(
+                                                  backgroundImage: Image.file(
+                                                    File(plant.plantimagepath),
+                                                  ).image,
+                                                  radius: 40,
+                                                ),
                                                 Container(
                                                   margin: EdgeInsets.all(6),
                                                   padding: EdgeInsets.symmetric(
@@ -398,6 +418,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold)),
+                                                    TextButton(
+                                                      child: const Text('선택하기'),
+                                                      onPressed: () {
+                                                        print(plantService);
+                                                      },
+                                                    ),
                                                   ],
                                                 ),
                                               ],
