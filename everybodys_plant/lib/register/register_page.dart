@@ -743,7 +743,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                               //알람 등록
                                               NotificationService()
                                                   .showNotification(1, "모두의 식물",
-                                                      "오늘은 물주는 날이에요!", 1);
+                                                      "오늘은 물주는 날이에요!", 5);
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
