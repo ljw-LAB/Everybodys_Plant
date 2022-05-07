@@ -4,12 +4,18 @@ import 'package:everybodys_plant/home/home_done.dart';
 import 'package:everybodys_plant/login/plantlogin.dart';
 import 'package:everybodys_plant/login/setting_page.dart';
 
+import 'package:everybodys_plant/service/plant_service.dart';
 import 'package:everybodys_plant/register/register_page.dart';
 import 'package:everybodys_plant/schedule/scheduler_org.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  final PlantService? test_service;
+  final String? test_image;
+
+  const MyHomePage(
+      {Key? key, @required this.test_service, @required this.test_image})
+      : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -19,6 +25,16 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 1;
   // 이동할 페이지
   List _pages = [Plant_schedule_Page(), HomeDonePage()];
+
+  @override
+  void initState() {
+    List _pages = [
+      Plant_schedule_Page(
+          test_image: widget.test_image, test_service: widget.test_service),
+      HomeDonePage(
+          test_image: widget.test_image, test_service: widget.test_service)
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

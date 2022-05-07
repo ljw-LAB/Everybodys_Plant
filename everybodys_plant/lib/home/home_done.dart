@@ -1,10 +1,12 @@
 // 기본 홈 화면
 
 import 'dart:core';
+import 'dart:io';
 // import 'dart:html';
 
 import 'package:everybodys_plant/register/plantlist.dart';
 import 'package:everybodys_plant/register/register_page.dart';
+import 'package:everybodys_plant/service/plant_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -48,14 +50,10 @@ String nickname = "귀요미"; //닉네임
 var _isVisible = true; //등록 여부에 따라 화면 다르게 보이기
 
 class HomeDonePage extends StatefulWidget {
-  final String? nickname;
-  final String? plantname;
-  final String? memo;
+  final PlantService? test_service;
+  final String? test_image;
   const HomeDonePage(
-      {Key? key,
-      @required this.nickname,
-      @required this.plantname,
-      @required this.memo})
+      {Key? key, @required this.test_service, @required this.test_image})
       : super(key: key);
   @override
   State<HomeDonePage> createState() => _HomeDonePageState();
@@ -135,7 +133,12 @@ class _HomeDonePageState extends State<HomeDonePage> {
                           borderRadius: BorderRadius.circular(6),
                         ),
                       ),
-
+                      CircleAvatar(
+                        backgroundImage: Image.file(
+                          File(widget.test_image.toString()),
+                        ).image,
+                        radius: 40,
+                      ),
                       SizedBox(height: size * 2), //Expanded 필요
 
                       //함께한지 며칠되었는지 표시

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:everybodys_plant/home/home_frame.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -774,10 +775,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        Plant_schedule_Page(
-                                                          test_service:
-                                                              plantService,
-                                                        )),
+                                                        MyHomePage(
+                                                            test_service:
+                                                                plantService,
+                                                            test_image:
+                                                                _image!.path)),
                                               );
                                             }, // nickname(애칭) 변수 반환하며 화면 종료
                                             child: Text(
