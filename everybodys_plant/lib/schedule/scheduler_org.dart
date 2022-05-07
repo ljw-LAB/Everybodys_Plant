@@ -89,51 +89,57 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
             child: Column(
               children: [
                 /// 달력
-                TableCalendar(
-                  firstDay: DateTime.utc(2010, 10, 16),
-                  lastDay: DateTime.utc(2030, 3, 14),
-                  focusedDay: selectedDate,
-                  calendarFormat: calendarFormat,
-                  onFormatChanged: (format) {
-                    // 달력 형식 변경
-                    setState(() {
-                      calendarFormat = format;
-                    });
-                  },
-                  eventLoader: (date) {
-                    // 각 날짜에 해당하는 plantList 보여주기
-                    return plantService.getByDate(date);
-                  },
-                  calendarStyle: CalendarStyle(
-                    // today 색상 제거
-                    todayTextStyle: TextStyle(color: Colors.black),
-                    todayDecoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
+                Container(
+                  child: TableCalendar(
+                    firstDay: DateTime.utc(2010, 10, 16),
+                    lastDay: DateTime.utc(2030, 3, 14),
+                    focusedDay: selectedDate,
+                    calendarFormat: calendarFormat,
+                    onFormatChanged: (format) {
+                      // 달력 형식 변경
+                      setState(() {
+                        calendarFormat = format;
+                      });
+                    },
+                    eventLoader: (date) {
+                      // 각 날짜에 해당하는 plantList 보여주기
+                      return plantService.getByDate(date);
+                    },
+                    calendarStyle: CalendarStyle(
+                      // today 색상 제거
+                      todayTextStyle: TextStyle(color: Colors.black),
+                      todayDecoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
                     ),
+                    selectedDayPredicate: (day) {
+                      return isSameDay(selectedDate, day);
+                    },
+                    onDaySelected: (_, focusedDay) {
+                      setState(() {
+                        selectedDate = focusedDay;
+                      });
+                    },
                   ),
-                  selectedDayPredicate: (day) {
-                    return isSameDay(selectedDate, day);
-                  },
-                  onDaySelected: (_, focusedDay) {
-                    setState(() {
-                      selectedDate = focusedDay;
-                    });
-                  },
                 ),
-                Divider(height: 1),
-                Row(
+                Divider(height: 20),
+                Column(
                   children: [
-                    SizedBox(width: 24),
-                    Image.asset('assets/Water.png'),
-                    SizedBox(width: 8),
-                    Text(
-                      "물주기 일정",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: primaryColorList[1],
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                    Row(
+                      children: [
+                        SizedBox(width: 24),
+                        Image.asset('assets/Water.png'),
+                        SizedBox(width: 8),
+                        Text(
+                          "물주기 일정",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: primaryColorList[1],
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -187,7 +193,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                 Text(
                                                   "마지막 물 준 날",
                                                   style: TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: 15,
                                                       color: Colors.grey),
                                                 ),
                                                 Container(
@@ -202,12 +208,12 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                       .format(
                                                           plant.lastwaterAt),
                                                   style: TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: 15,
                                                       color: Colors.grey),
                                                 )
                                               ]),
                                         SizedBox(
-                                          height: 16,
+                                          height: 10,
                                         ),
                                         Row(
                                           children: [
@@ -218,44 +224,43 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                               backgroundImage: Image.file(
                                                 File(plant.plantimagepath),
                                               ).image,
-                                              radius: 40,
+                                              radius: 30,
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.all(6),
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 6),
-                                              child: Text('image',
-                                                  style: TextStyle(
-                                                      color: Colors.green,
-                                                      fontSize: 13)),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.green),
-                                                  borderRadius:
-                                                      BorderRadius.circular(6)),
-                                            ),
+                                            // Container(
+                                            //   margin: EdgeInsets.all(6),
+                                            //   padding: EdgeInsets.symmetric(
+                                            //       horizontal: 6),
+                                            //   child: Text('image',
+                                            //       style: TextStyle(
+                                            //           color: Colors.green,
+                                            //           fontSize: 13)),
+                                            //   decoration: BoxDecoration(
+                                            //       border: Border.all(
+                                            //           color: Colors.green),
+                                            //       borderRadius:
+                                            //           BorderRadius.circular(6)),
+                                            // ),
                                             SizedBox(
                                               width: 16,
                                             ),
                                             Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(plant.plantname,
                                                     style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                        fontSize: 16,
                                                         color: Colors.grey)),
                                                 Text(plant.nickname,
                                                     style: TextStyle(
-                                                        fontSize: 12,
+                                                        fontSize: 16,
                                                         fontWeight:
                                                             FontWeight.bold)),
-                                                TextButton(
-                                                  child: const Text('선택하기'),
-                                                  onPressed: () {
-                                                    print(plantService);
-                                                  },
-                                                ),
+                                                // TextButton(
+                                                //   child: const Text('선택하기'),
+                                                //   onPressed: () {
+                                                //     print(plantService);
+                                                //   },
                                               ],
                                             ),
                                           ],
@@ -298,6 +303,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                     ),
                   ],
                 ),
+                SizedBox(width: 24),
 
                 Expanded(
                   child: plantList.isEmpty
@@ -351,7 +357,7 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                     Text(
                                                       "마지막 분갈이 날",
                                                       style: TextStyle(
-                                                          fontSize: 16,
+                                                          fontSize: 15,
                                                           color: Colors.grey),
                                                     ),
                                                     Container(
@@ -367,13 +373,10 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                           .format(plant
                                                               .lastwaterAt),
                                                       style: TextStyle(
-                                                          fontSize: 16,
+                                                          fontSize: 15,
                                                           color: Colors.grey),
                                                     )
                                                   ]),
-                                            SizedBox(
-                                              height: 16,
-                                            ),
                                             Row(
                                               children: [
                                                 SizedBox(
@@ -383,47 +386,47 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
                                                   backgroundImage: Image.file(
                                                     File(plant.plantimagepath),
                                                   ).image,
-                                                  radius: 40,
+                                                  radius: 35,
                                                 ),
-                                                Container(
-                                                  margin: EdgeInsets.all(6),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 6),
-                                                  child: Text('image',
-                                                      style: TextStyle(
-                                                          color: Colors.green,
-                                                          fontSize: 13)),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.green),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              6)),
-                                                ),
+                                                // Container(
+                                                //   margin: EdgeInsets.all(6),
+                                                //   padding: EdgeInsets.symmetric(
+                                                //       horizontal: 6),
+                                                //   child: Text('image',
+                                                //       style: TextStyle(
+                                                //           color: Colors.green,
+                                                //           fontSize: 13)),
+                                                //   decoration: BoxDecoration(
+                                                //       border: Border.all(
+                                                //           color: Colors.green),
+                                                //       borderRadius:
+                                                //           BorderRadius.circular(
+                                                //               6)),
+                                                // ),
                                                 SizedBox(
                                                   width: 16,
                                                 ),
                                                 Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(plant.plantname,
                                                         style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            fontSize: 16,
                                                             color:
                                                                 Colors.grey)),
                                                     Text(plant.nickname,
                                                         style: TextStyle(
-                                                            fontSize: 12,
+                                                            fontSize: 16,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold)),
-                                                    TextButton(
-                                                      child: const Text('선택하기'),
-                                                      onPressed: () {
-                                                        print(plantService);
-                                                      },
-                                                    ),
+                                                    // TextButton(
+                                                    //   child: const Text('선택하기'),
+                                                    //   onPressed: () {
+                                                    //     print(plantService);
+                                                    //   },
+                                                    // ),
                                                   ],
                                                 ),
                                               ],
@@ -455,14 +458,14 @@ class _Plant_schedule_PageState extends State<Plant_schedule_Page> {
             ),
           ),
 
-          /// Floating Action Button
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.create),
-            backgroundColor: Colors.indigo,
-            onPressed: () {
-              //showCreateDialog(plantService);
-            },
-          ),
+          // /// Floating Action Button
+          // floatingActionButton: FloatingActionButton(
+          //   child: Icon(Icons.create),
+          //   backgroundColor: Colors.indigo,
+          //   onPressed: () {
+          //     //showCreateDialog(plantService);
+          //   },
+          // ),
         );
       },
     );
